@@ -1,5 +1,10 @@
 import { Component } from "react";
-import { SearchForm, CardGroup, LoadingSpinner } from "../components";
+import {
+  SearchForm,
+  CardGroup,
+  LoadingSpinner,
+  ButtonError,
+} from "../components";
 import {
   startrekApiCall,
   StartrekApiResponse,
@@ -54,6 +59,7 @@ class MainPage extends Component {
             onInputChange={this.handleQueryChange}
             currentQuery={this.state.query}
           ></SearchForm>
+          <ButtonError children=""></ButtonError>
         </header>
         <main>
           {this.state.isLoading ? (
