@@ -27,7 +27,6 @@ interface StartrekApiResponse {
 async function startrekApiCall(animal: string): Promise<StartrekApiResponse> {
   const URL = `https://stapi.co/api/v1/rest/animal/search`;
   try {
-    //сразу при старте страницы сделать запрос на либо все, либо часть с поиском из локал стореджа
     // loader should be shown while app makes a call to the api
     // error button, fallback UI
     const trimmedResponse = animal.trim();

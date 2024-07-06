@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { SearchForm, CardGroup } from "../components";
+import { SearchForm, CardGroup, LoadingSpinner } from "../components";
 import {
   startrekApiCall,
   StartrekApiResponse,
@@ -8,6 +8,7 @@ import {
 interface InputState {
   query: string;
   searchedElements: StartrekApiResponse | null;
+  isLoading: boolean;
 }
 
 class MainPage extends Component {
@@ -20,16 +21,22 @@ class MainPage extends Component {
   state: InputState = {
     query: (localStorage.getItem("prevQuery") as string) || "",
     searchedElements: null,
+    isLoading: true,
   };
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    localStorage.setItem("prevQuery", this.state.query);
-    startrekApiCall(this.state.query.toString()).then(
-      (response: StartrekApiResponse) => {
+  handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
+    if (event) {
+      event.preventDefault();
+      localStorage.setItem("prevQuery", this.state.query);
+    }
+    this.setState({ isLoading: true });
+    startrekApiCall(this.state.query.toString())
+      .then((response: StartrekApiResponse) => {
         this.setState({ searchedElements: response });
-      },
-    );
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
   };
 
   handleQueryChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -43,13 +50,19 @@ class MainPage extends Component {
       <>
         <header>
           <SearchForm
-            onFormSubmisson={this.handleSubmit}
+            onFormSubmission={this.handleSubmit}
             onInputChange={this.handleQueryChange}
             currentQuery={this.state.query}
           ></SearchForm>
         </header>
         <main>
-          <CardGroup searchedElements={this.state.searchedElements}></CardGroup>
+          {this.state.isLoading ? (
+            <LoadingSpinner></LoadingSpinner>
+          ) : (
+            <CardGroup
+              searchedElements={this.state.searchedElements}
+            ></CardGroup>
+          )}
         </main>
       </>
     );

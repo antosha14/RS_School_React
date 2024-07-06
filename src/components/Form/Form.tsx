@@ -3,7 +3,7 @@ import "./Form.css";
 import { Input, Button } from "../index";
 
 interface searchProps {
-  onFormSubmisson: (event: React.FormEvent<HTMLFormElement>) => void;
+  onFormSubmission: (event?: React.FormEvent<HTMLFormElement>) => void;
   onInputChange: (event: React.FormEvent<HTMLInputElement>) => void;
   currentQuery: string;
 }
@@ -13,9 +13,13 @@ class SearchForm extends Component<searchProps> {
     super(props);
   }
 
+  componentDidMount(): void {
+    this.props.onFormSubmission();
+  }
+
   render() {
     return (
-      <form onSubmit={this.props.onFormSubmisson}>
+      <form onSubmit={this.props.onFormSubmission}>
         <Input
           onInputChange={this.props.onInputChange}
           currentQuery={this.props.currentQuery}

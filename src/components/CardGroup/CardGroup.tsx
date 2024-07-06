@@ -11,38 +11,33 @@ interface CardGroupState {
   animalsList: JSX.Element[] | null;
 }
 
-class CardGroup extends Component<CardGroupProps> {
+class CardGroup extends Component<CardGroupProps, CardGroupState> {
   constructor(props: CardGroupProps) {
     super(props);
-  }
-
-  state: CardGroupState = {
-    animalsList: null,
-  };
-
-  componentDidUpdate(prevProps: CardGroupProps) {
-    if (prevProps.searchedElements !== this.props.searchedElements) {
-      this.setState({
-        animalsList: this.props.searchedElements?.animals
-          ? this.props.searchedElements.animals.map(
-              (animal: Animal, index: number) => {
-                return (
-                  <Card
-                    cardData={animal}
-                    key={animal.uid}
-                    index={index + 1}
-                  ></Card>
-                );
-              },
-            )
-          : null,
-      });
-    }
+    this.state = {
+      animalsList: this.props.searchedElements?.animals
+        ? this.props.searchedElements.animals.map(
+            (animal: Animal, index: number) => {
+              return (
+                <Card
+                  cardData={animal}
+                  key={animal.uid}
+                  index={index + 1}
+                ></Card>
+              );
+            },
+          )
+        : null,
+    };
   }
 
   render() {
     return (
-      <ul>{this.state.animalsList ? this.state.animalsList : "Not Found"}</ul>
+      <ul>
+        {this.state.animalsList && this.state.animalsList.length != 0
+          ? this.state.animalsList
+          : "There isn't any animal with this name"}
+      </ul>
     );
   }
 }
