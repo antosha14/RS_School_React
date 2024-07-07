@@ -27,10 +27,14 @@ class Card extends Component<CardData> {
     super(props);
   }
 
-  description: string = `${this.props.index}. Name: ${this.props.cardData.name}. This ${this.props.cardData.earthAnimal ? "is" : "isn't"} Earth Animal. This is ${getSpecies(this.props.cardData)}`;
+  description: string = `${this.props.index}. ${this.props.cardData.name}. This ${this.props.cardData.earthAnimal ? "is" : "isn't"} Earth Animal. This is ${getSpecies(this.props.cardData)}`;
 
   render() {
-    return <li>{this.description}</li>;
+    return (
+      <li className="listItem">
+        <span className="listDescription">{this.description}</span>
+      </li>
+    );
   }
 }
 

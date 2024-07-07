@@ -16,6 +16,8 @@ class Input extends Component<inputProps> {
       <input
         onChange={this.props.onInputChange}
         value={this.props.currentQuery}
+        type="search"
+        placeholder="Search for animals in Star trek API"
       ></input>
     );
   }

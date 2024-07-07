@@ -54,14 +54,16 @@ class MainPage extends Component {
     return (
       <>
         <header>
-          <SearchForm
-            onFormSubmission={this.handleSubmit}
-            onInputChange={this.handleQueryChange}
-            currentQuery={this.state.query}
-          ></SearchForm>
-          <ButtonError children=""></ButtonError>
+          <div className="headerContainer">
+            <SearchForm
+              onFormSubmission={this.handleSubmit}
+              onInputChange={this.handleQueryChange}
+              currentQuery={this.state.query}
+            ></SearchForm>
+            <ButtonError children=""></ButtonError>
+          </div>
         </header>
-        <main>
+        <main className={this.state.isLoading ? "loading" : "list"}>
           {this.state.isLoading ? (
             <LoadingSpinner></LoadingSpinner>
           ) : (

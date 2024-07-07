@@ -1,9 +1,9 @@
 """
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/class-components.md
 2. Screenshot:
-   ![](https://docs.app.rs.school/images/fancy-weather.png)
-3. Deployment: https://chakapega-fancy-weather.netlify.com/
-4. Done 28.05.2020 / deadline 31.05.2020
+   ![]()
+3. Deployment: 
+4. Done 07.07.2024 / deadline  08.07.2024
 5. Score: 100 / 100
 - [x] Eslint is set up, when lint command is run it doesn't produce any errors (if there are warnings score might be less) (15)
 - [x] Prettier is set up, format:fix command fixes issues (15)

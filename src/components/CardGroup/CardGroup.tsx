@@ -33,7 +33,7 @@ class CardGroup extends Component<CardGroupProps, CardGroupState> {
 
   render() {
     return (
-      <ul>
+      <ul className="liContainer">
         {this.state.animalsList && this.state.animalsList.length != 0
           ? this.state.animalsList
           : "There isn't any animal with this name"}

@@ -19,7 +19,7 @@ class SearchForm extends Component<searchProps> {
 
   render() {
     return (
-      <form onSubmit={this.props.onFormSubmission}>
+      <form onSubmit={this.props.onFormSubmission} className="formContainer">
         <Input
           onInputChange={this.props.onInputChange}
           currentQuery={this.props.currentQuery}
