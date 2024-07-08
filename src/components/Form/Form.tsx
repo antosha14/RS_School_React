@@ -1,33 +1,27 @@
-import { Component } from "react";
 import "./Form.css";
 import { Input, Button } from "../index";
+import { useEffect } from "react";
 
 interface searchProps {
   onFormSubmission: (event?: React.FormEvent<HTMLFormElement>) => void;
-  onInputChange: (event: React.FormEvent<HTMLInputElement>) => void;
+  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   currentQuery: string;
 }
 
-class SearchForm extends Component<searchProps> {
-  constructor(props: searchProps) {
-    super(props);
-  }
+function SearchForm(props: searchProps) {
+  useEffect(() => {
+    props.onFormSubmission();
+  }, []);
 
-  componentDidMount(): void {
-    this.props.onFormSubmission();
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.props.onFormSubmission} className="formContainer">
-        <Input
-          onInputChange={this.props.onInputChange}
-          currentQuery={this.props.currentQuery}
-        ></Input>
-        <Button></Button>
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={props.onFormSubmission} className="formContainer">
+      <Input
+        onInputChange={props.onInputChange}
+        currentQuery={props.currentQuery}
+      ></Input>
+      <Button></Button>
+    </form>
+  );
 }
 
 export default SearchForm;

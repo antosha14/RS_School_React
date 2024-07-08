@@ -1,4 +1,3 @@
-import { Component } from "react";
 import {
   SearchForm,
   CardGroup,
@@ -9,6 +8,7 @@ import {
   startrekApiCall,
   StartrekApiResponse,
 } from "../services/startrekApiCall";
+import { useState } from "react";
 
 interface InputState {
   query: string;
@@ -16,65 +16,63 @@ interface InputState {
   isLoading: boolean;
 }
 
-class MainPage extends Component {
-  constructor(props: string) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleQueryChange = this.handleQueryChange.bind(this);
-  }
-
-  state: InputState = {
+function MainPage() {
+  const [inputState, setInputState] = useState<InputState>({
     query: (localStorage.getItem("prevQuery") as string) || "",
     searchedElements: null,
     isLoading: true,
-  };
+  });
 
-  handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
       event.preventDefault();
-      localStorage.setItem("prevQuery", this.state.query);
+      localStorage.setItem("prevQuery", inputState.query as string);
     }
-    this.setState({ isLoading: true });
-    startrekApiCall(this.state.query.toString())
+
+    setInputState((prevState: InputState) => {
+      return { ...prevState, isLoading: true };
+    });
+
+    startrekApiCall(inputState.query.toString())
       .then((response: StartrekApiResponse) => {
-        this.setState({ searchedElements: response });
+        setInputState((prevState: InputState) => {
+          return { ...prevState, searchedElements: response };
+        });
       })
       .finally(() => {
-        this.setState({ isLoading: false });
+        setInputState((prevState: InputState) => {
+          return { ...prevState, isLoading: false };
+        });
       });
   };
 
-  handleQueryChange = (event: React.FormEvent<HTMLInputElement>) => {
-    this.setState({
-      query: event.currentTarget.value,
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputState((prevState: InputState) => {
+      return { ...prevState, query: event.target.value };
     });
   };
 
-  render() {
-    return (
-      <>
-        <header>
-          <div className="headerContainer">
-            <SearchForm
-              onFormSubmission={this.handleSubmit}
-              onInputChange={this.handleQueryChange}
-              currentQuery={this.state.query}
-            ></SearchForm>
-            <ButtonError children=""></ButtonError>
-          </div>
-        </header>
-        <main className={this.state.isLoading ? "loading" : "list"}>
-          {this.state.isLoading ? (
-            <LoadingSpinner></LoadingSpinner>
-          ) : (
-            <CardGroup
-              searchedElements={this.state.searchedElements}
-            ></CardGroup>
-          )}
-        </main>
-      </>
-    );
-  }
+  return (
+    <>
+      <header>
+        <div className="headerContainer">
+          <SearchForm
+            onFormSubmission={handleSubmit}
+            onInputChange={handleQueryChange}
+            currentQuery={inputState.query}
+          ></SearchForm>
+          <ButtonError></ButtonError>
+        </div>
+      </header>
+      <main className={inputState.isLoading ? "loading" : "list"}>
+        {inputState.isLoading ? (
+          <LoadingSpinner></LoadingSpinner>
+        ) : (
+          <CardGroup searchedElements={inputState.searchedElements}></CardGroup>
+        )}
+      </main>
+    </>
+  );
 }
 
 export default MainPage;

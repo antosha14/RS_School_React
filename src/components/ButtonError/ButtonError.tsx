@@ -1,37 +1,24 @@
-import { Component } from "react";
 import "./ButtonError.css";
+import { useState } from "react";
 
-interface ButtonErrorState {
-  isError: boolean;
-}
+function ButtonError() {
+  const [errorState, setIsError] = useState<boolean>(false);
 
-interface ButtonErrorProps {
-  children: string;
-}
-
-class ButtonError extends Component<ButtonErrorProps, ButtonErrorState> {
-  constructor(props: ButtonErrorProps) {
-    super(props);
-    this.state = { isError: false };
-    this.throwError = this.throwError.bind(this);
-  }
-
-  throwError = () => {
-    this.setState({ isError: true });
+  const throwError = () => {
+    return setIsError(true);
   };
 
-  render() {
-    if (this.state.isError) {
-      throw new Error(
-        "Did you press the red button? What a pity... Now you should reload the page. Be careful next time.",
-      );
-    }
-    return (
-      <button className="crash" onClick={this.throwError}>
-        Crash the app
-      </button>
+  if (errorState) {
+    throw new Error(
+      "Did you press the red button? What a pity... Now you should reload the page. Be careful next time.",
     );
   }
+
+  return (
+    <button className="crash" onClick={throwError}>
+      Crash the app
+    </button>
+  );
 }
 
 export default ButtonError;

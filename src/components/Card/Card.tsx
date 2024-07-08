@@ -1,4 +1,3 @@
-import { Component } from "react";
 import "./Card.css";
 import { Animal } from "../../services/startrekApiCall";
 
@@ -22,20 +21,14 @@ function getSpecies(animal: Animal): string {
   }
 }
 
-class Card extends Component<CardData> {
-  constructor(props: CardData) {
-    super(props);
-  }
+function Card(props: CardData) {
+  const description: string = `${props.index}. ${props.cardData.name}. This ${props.cardData.earthAnimal ? "is" : "isn't"} Earth Animal. This is ${getSpecies(props.cardData)}`;
 
-  description: string = `${this.props.index}. ${this.props.cardData.name}. This ${this.props.cardData.earthAnimal ? "is" : "isn't"} Earth Animal. This is ${getSpecies(this.props.cardData)}`;
-
-  render() {
-    return (
-      <li className="listItem">
-        <span className="listDescription">{this.description}</span>
-      </li>
-    );
-  }
+  return (
+    <li className="listItem">
+      <span className="listDescription">{description}</span>
+    </li>
+  );
 }
 
 export default Card;
