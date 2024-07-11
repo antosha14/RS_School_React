@@ -1,12 +1,4 @@
-interface Animal {
-  uid: string;
-  name: string;
-  earthAnimal: boolean;
-  earthInsect: boolean;
-  avian: boolean;
-  canine: boolean;
-  feline: boolean;
-}
+import { Character } from "./detailedDataApiCall";
 
 interface StartrekApiResponse {
   page: {
@@ -21,33 +13,33 @@ interface StartrekApiResponse {
   sort: {
     clauses: [[]];
   };
-  animals: Animal[];
+  characters: Character[];
 }
 
-async function startrekApiCall(animal: string): Promise<StartrekApiResponse> {
-  const URL = `https://stapi.co/api/v1/rest/animal/search`;
+async function startrekApiCall(
+  characterName: string,
+): Promise<StartrekApiResponse> {
+  const URL = `https://stapi.co/api/v1/rest/character/search`;
   try {
-    // loader should be shown while app makes a call to the api
-    // error button, fallback UI
-    const trimmedResponse = animal.trim();
+    const trimmedRequest = characterName.trim();
     const response = await fetch(URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `name=${encodeURIComponent(trimmedResponse)}`,
+      body: `name=${encodeURIComponent(trimmedRequest)}`,
     });
 
     if (!response.ok) {
       throw new Error(`HTTP error ${response.status}`);
     }
-    const animals: StartrekApiResponse = await response.json();
-    return animals;
+    const characters: StartrekApiResponse = await response.json();
+    return characters;
   } catch (error) {
-    console.error("Error fetching animals:", error);
+    console.error("Error fetching characters:", error);
     throw error;
   }
 }
 
 export { startrekApiCall };
-export type { Animal, StartrekApiResponse };
+export type { Character, StartrekApiResponse };

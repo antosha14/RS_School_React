@@ -6,6 +6,7 @@ import CardGroup from "./CardGroup/CardGroup";
 import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 import ButtonError from "./ButtonError/ButtonError";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+import DetailedCard from "./DetailedCard/DetailedCard";
 
 export {
   Input,
@@ -16,4 +17,5 @@ export {
   LoadingSpinner,
   ButtonError,
   ErrorBoundary,
+  DetailedCard,
 };

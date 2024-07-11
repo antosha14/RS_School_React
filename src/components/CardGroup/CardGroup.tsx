@@ -1,6 +1,6 @@
 import "./CardGroup.css";
 import { Card } from "../index";
-import { StartrekApiResponse, Animal } from "../../services/startrekApiCall";
+import { StartrekApiResponse, Character } from "../../services/startrekApiCall";
 import { useState } from "react";
 
 interface CardGroupProps {
@@ -8,24 +8,31 @@ interface CardGroupProps {
 }
 
 function CardGroup(props: CardGroupProps) {
-  const [animalsList] = useState<JSX.Element[] | null>(
-    props.searchedElements?.animals
-      ? props.searchedElements.animals.map((animal: Animal, index: number) => {
-          return (
-            <Card cardData={animal} key={animal.uid} index={index + 1}></Card>
-          );
-        })
+  const [charactersList] = useState<JSX.Element[] | null>(
+    props.searchedElements?.characters
+      ? props.searchedElements.characters.map(
+          (character: Character, index: number) => {
+            return (
+              <Card
+                cardData={character}
+                key={character.uid}
+                index={index + 1}
+                uid={character.uid}
+              ></Card>
+            );
+          },
+        )
       : null,
   );
 
   return (
     <ul className="liContainer">
-      {animalsList && animalsList.length != 0 ? (
-        animalsList
+      {charactersList && charactersList.length != 0 ? (
+        charactersList
       ) : (
         <li className="listItem">
           <span className="listDescription">
-            There isn't any animal with this name
+            There isn't any character with this name
           </span>
         </li>
       )}

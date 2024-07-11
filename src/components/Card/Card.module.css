@@ -3,11 +3,14 @@ li.listItem {
   left: 0;
   color: #fce4ec;
   list-style: none;
-  margin: 4px 0;
+  margin: 7px 0;
   border-left: 2px solid #f50057;
   transition: 0.5s;
   cursor: pointer;
   font-size: 25px;
+  display: flex;
+  flex-direction: column;
+  min-width: 850px;
 }
 
 li.listItem:hover {
@@ -40,4 +43,9 @@ li.listItem:before {
 
 li.listItem:hover:before {
   transform: scaleX(1);
+}
+
+.learnMoreButton {
+  z-index: 2;
+  max-width: 150px;
 }

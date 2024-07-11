@@ -26,16 +26,5 @@ main {
     #2b303b 90deg,
     #16181d 1turn
   );
-}
-
-main.loading {
   display: flex;
-  justify-content: center;
-}
-
-div.headerContainer {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin: 40px;
 }

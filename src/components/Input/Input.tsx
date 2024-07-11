@@ -11,7 +11,7 @@ function Input(props: inputProps) {
       onChange={props.onInputChange}
       value={props.currentQuery}
       type="search"
-      placeholder="Search for animals in Star trek API"
+      placeholder="Search for characters in Star trek API"
     ></input>
   );
 }

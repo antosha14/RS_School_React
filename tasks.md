@@ -15,3 +15,53 @@
 - [x] Details panel should be closed either on the "close" button click or on the main panel click (10/10)
 
 refactor: rewrite whole app using functional components, fix: form input event type
+
+Modal
+
+import { useEffect, useRef } from 'react';
+
+export default function ModalDialog({ isOpen, children }) {
+const ref = useRef();
+
+useEffect(() => {
+if (!isOpen) {
+return;
+}
+const dialog = ref.current;
+dialog.showModal();
+return () => {
+dialog.close();
+};
+}, [isOpen]);
+
+return <dialog ref={ref}>{children}</dialog>;
+}
+
+App
+
+import { useState } from 'react';
+import ModalDialog from './ModalDialog.js';
+
+export default function App() {
+const [show, setShow] = useState(false);
+return (
+<>
+<button onClick={() => setShow(true)}>
+Open dialog
+</button>
+<ModalDialog isOpen={show}>
+Hello there!
+<br />
+<button onClick={() => {
+setShow(false);
+}}>Close</button>
+</ModalDialog>
+</>
+);
+}
+
+1. Определить роуты через специальную функцию (объекты в ней, c path and element)
+2. Обернуть приложение в RouterProvider <RouterProvider router={router}></RouterProvider>
+3. Ходим от страницы к странице с помощью Link
+4. useNavigation для новигации в коде
+5. retlative={path} prop на линке чтобы релатив кидал по текущей ссылке, а не по path definitions

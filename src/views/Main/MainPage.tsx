@@ -3,12 +3,15 @@ import {
   CardGroup,
   LoadingSpinner,
   ButtonError,
-} from "../components";
+} from "../../components";
 import {
   startrekApiCall,
   StartrekApiResponse,
-} from "../services/startrekApiCall";
+} from "../../services/startrekApiCall";
 import { useState } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { Outlet } from "react-router-dom";
+import classes from "./MainPage.module.css";
 
 interface InputState {
   query: string;
@@ -17,8 +20,9 @@ interface InputState {
 }
 
 function MainPage() {
+  const [initialQuery, setPrevQuery] = useLocalStorage("prevQuery");
   const [inputState, setInputState] = useState<InputState>({
-    query: (localStorage.getItem("prevQuery") as string) || "",
+    query: initialQuery,
     searchedElements: null,
     isLoading: true,
   });
@@ -26,7 +30,7 @@ function MainPage() {
   const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
       event.preventDefault();
-      localStorage.setItem("prevQuery", inputState.query as string);
+      setPrevQuery(inputState.query);
     }
 
     setInputState((prevState: InputState) => {
@@ -55,7 +59,7 @@ function MainPage() {
   return (
     <>
       <header>
-        <div className="headerContainer">
+        <div className={classes.headerContainer}>
           <SearchForm
             onFormSubmission={handleSubmit}
             onInputChange={handleQueryChange}
@@ -70,6 +74,7 @@ function MainPage() {
         ) : (
           <CardGroup searchedElements={inputState.searchedElements}></CardGroup>
         )}
+        <Outlet></Outlet>
       </main>
     </>
   );

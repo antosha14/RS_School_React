@@ -1,0 +1,18 @@
+@import "../../variables.css";
+
+.detailedCardContainer {
+  background-color: var(--primary-background);
+  min-width: 300px;
+  height: auto;
+  display: flex;
+  align-items: top;
+  max-height: 350px;
+}
+
+.detailedCardItem {
+  min-width: 260px;
+  background-color: var(--secondary-background);
+  color: var(--primary-font-color);
+  margin: 16px;
+  padding: 8px;
+}

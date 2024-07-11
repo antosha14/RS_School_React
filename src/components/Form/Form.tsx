@@ -9,8 +9,9 @@ interface searchProps {
 }
 
 function SearchForm(props: searchProps) {
+  const onFormSubmission = props.onFormSubmission;
   useEffect(() => {
-    props.onFormSubmission();
+    onFormSubmission();
   }, []);
 
   return (
