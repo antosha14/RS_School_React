@@ -10,7 +10,7 @@ import {
 } from "../../services/startrekApiCall";
 import { useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, useNavigation } from "react-router-dom";
 import classes from "./MainPage.module.css";
 
 interface InputState {
@@ -20,19 +20,21 @@ interface InputState {
 }
 
 function MainPage() {
+  const navigation = useNavigation();
   const [initialQuery, setPrevQuery] = useLocalStorage("prevQuery");
   const [inputState, setInputState] = useState<InputState>({
     query: initialQuery,
     searchedElements: null,
     isLoading: true,
   });
-
+  const navigate = useNavigate();
   const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
       event.preventDefault();
       setPrevQuery(inputState.query);
     }
 
+    navigate(`/?page=1`);
     setInputState((prevState: InputState) => {
       return { ...prevState, isLoading: true };
     });
@@ -72,9 +74,17 @@ function MainPage() {
         {inputState.isLoading ? (
           <LoadingSpinner></LoadingSpinner>
         ) : (
-          <CardGroup searchedElements={inputState.searchedElements}></CardGroup>
+          <div className={classes.paginationContainer}>
+            <CardGroup
+              searchedElements={inputState.searchedElements}
+            ></CardGroup>
+          </div>
         )}
-        <Outlet></Outlet>
+        {navigation.state === "loading" ? (
+          <LoadingSpinner></LoadingSpinner>
+        ) : (
+          <Outlet></Outlet>
+        )}
       </main>
     </>
   );

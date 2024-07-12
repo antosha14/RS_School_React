@@ -7,6 +7,7 @@ import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 import ButtonError from "./ButtonError/ButtonError";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import DetailedCard from "./DetailedCard/DetailedCard";
+import NavigationBar from "./NavigationBar/NavigationBar";
 
 export {
   Input,
@@ -18,4 +19,5 @@ export {
   ButtonError,
   ErrorBoundary,
   DetailedCard,
+  NavigationBar,
 };

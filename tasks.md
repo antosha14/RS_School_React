@@ -65,3 +65,12 @@ setShow(false);
 3. Ходим от страницы к странице с помощью Link
 4. useNavigation для новигации в коде
 5. retlative={path} prop на линке чтобы релатив кидал по текущей ссылке, а не по path definitions
+
+npm install jest --save-dev
+npm install @testing-library/react --save-dev
+npm install ts-jest @types/jest --save-dev
+Run npm install ts-node @testing-library/jest-dom --save-dev
+Run npm install jest-environment-jsdom
+Run npm install identity-obj-proxy --save-dev
+In your root directory, create a jest.config.ts file
+https://www.youtube.com/watch?v=G-4zgIPsjkU

@@ -9,3 +9,8 @@
   display: flex;
   justify-content: center;
 }
+
+.paginationContainer {
+  display: flex;
+  flex-direction: column;
+}

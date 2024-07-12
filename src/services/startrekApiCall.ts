@@ -11,9 +11,9 @@ interface StartrekApiResponse {
     lastPage: boolean;
   };
   sort: {
-    clauses: [[]];
+    clauses: [[]] | never[];
   };
-  characters: Character[];
+  characters: Character[] | never[];
 }
 
 async function startrekApiCall(
