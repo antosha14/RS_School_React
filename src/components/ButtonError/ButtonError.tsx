@@ -9,9 +9,7 @@ function ButtonError() {
   };
 
   if (errorState) {
-    throw new Error(
-      "Did you press the red button? What a pity... Now you should reload the page. Be careful next time.",
-    );
+    throw new Error("Red button");
   }
 
   return (

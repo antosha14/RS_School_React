@@ -6,8 +6,11 @@ import { detailedDataApiCall } from "./services/detailedDataApiCall";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage />,
-    errorElement: <PageNotFoundPage />,
+    element: (
+      <ErrorBoundary>
+        <MainPage />
+      </ErrorBoundary>
+    ),
     children: [
       {
         path: "/details/:uid",
@@ -16,14 +19,11 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "*", element: <PageNotFoundPage></PageNotFoundPage> },
 ]);
 
 function App() {
-  return (
-    <ErrorBoundary>
-      <RouterProvider router={router}></RouterProvider>
-    </ErrorBoundary>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;
