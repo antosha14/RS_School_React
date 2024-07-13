@@ -10,7 +10,12 @@ import {
 } from "../../services/startrekApiCall";
 import { useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { Outlet, useNavigate, useNavigation } from "react-router-dom";
+import {
+  Outlet,
+  useNavigate,
+  useNavigation,
+  useLocation,
+} from "react-router-dom";
 import classes from "./MainPage.module.css";
 
 interface InputState {
@@ -28,6 +33,8 @@ function MainPage() {
     isLoading: true,
   });
   const navigate = useNavigate();
+  const location = useLocation();
+
   const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
       event.preventDefault();
@@ -74,7 +81,13 @@ function MainPage() {
         {inputState.isLoading ? (
           <LoadingSpinner></LoadingSpinner>
         ) : (
-          <div className={classes.paginationContainer}>
+          <div
+            className={
+              location.pathname.startsWith("/details")
+                ? classes.paginationContainerOver
+                : classes.paginationContainer
+            }
+          >
             <CardGroup
               searchedElements={inputState.searchedElements}
             ></CardGroup>
