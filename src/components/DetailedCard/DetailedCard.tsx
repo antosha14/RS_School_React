@@ -1,5 +1,4 @@
 import { useLoaderData, NavLink, useSearchParams } from "react-router-dom";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import classes from "./DetailedCard.module.css";
 import { Character } from "../../services/detailedDataApiCall";
 

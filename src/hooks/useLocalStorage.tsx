@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-//Guess i should rewrite it DOESENT SAVE VALUE FROM INPUT ON UNMOUNT!!
 const useLocalStorage = (key: string) => {
   const [value, setValue] = useState(localStorage.getItem(key) || "");
 
