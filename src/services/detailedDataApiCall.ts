@@ -1,3 +1,5 @@
+import { LoaderFunctionArgs } from "react-router-dom";
+
 interface Character {
   uid: string;
   name: string;
@@ -25,10 +27,11 @@ interface Character {
   alternateReality: boolean | null;
 }
 
-const detailedDataApiCall = async ({ params }: { params: { uid: string } }) => {
+const detailedDataApiCall = async ({ params }: LoaderFunctionArgs) => {
   try {
+    const uid = params.uid ? params.uid : "";
     const urlSearchParams = new URLSearchParams({
-      uid: params.uid,
+      uid: uid,
     });
     const URL = `https://stapi.co/api/v1/rest/character?${urlSearchParams}`;
     const response = await fetch(URL);

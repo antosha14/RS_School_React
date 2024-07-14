@@ -20,7 +20,9 @@ describe("Detailed card tests", () => {
   it("clicking the Search button saves the entered value to the local storage", async () => {
     localStorage.setItem("prevQuery", "Hi i was here");
     render(<App></App>);
-    const inputElement: HTMLInputElement = screen.getByRole("textbox");
+    const inputElement: HTMLInputElement = screen.getByPlaceholderText(
+      "Search for characters in Star trek API",
+    );
     expect(inputElement.value).toBe("Hi i was here");
   });
 });
