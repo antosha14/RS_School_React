@@ -34,13 +34,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     if (this.state.error) {
       return (
         <div className={classnames.errorContainer}>
-          <h1>An error occurred!</h1>
-          <p>
+          <h1 className={classnames.errorHeader}>An error occurred!</h1>
+          <p className={classnames.errorMessage}>
             {this.state.error?.toString() == "Error: Red button"
               ? `You pressed the wrong button ${String.fromCodePoint(0x1f621)}`
               : "Unknown error has happened"}
           </p>
-          <NavLink to={"/"} onClick={this.handleClick}>
+          <NavLink
+            to={"/"}
+            onClick={this.handleClick}
+            className={classnames.buttonToMainPage}
+          >
             Reload the page
           </NavLink>
         </div>

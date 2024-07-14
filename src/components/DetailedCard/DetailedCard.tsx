@@ -12,14 +12,30 @@ function DetailedCard() {
     <>
       <div className={classnames.detailedCardContainer}>
         <div className={classnames.detailedCardItem}>
-          <p>{`Name: ${character.name}`}</p>
-          <p>{`Gender: ${character.gender}`}</p>
-          <p>{`Birth year: ${character.yearOfBirth}`}</p>
-          <p>{`Birth place: ${character.placeOfBirth}`}</p>
-          <p>{`Height: ${character.height}`}</p>
-          <p>{`Weight: ${character.weight}`}</p>
-          <p>{`Marital status: ${character.maritalStatus}`}</p>
-          <NavLink to={`/?page=${page}`}>Close</NavLink>
+          <p
+            className={classnames.descriptionItem}
+          >{`Name: ${character.name}`}</p>
+          <p
+            className={classnames.descriptionItem}
+          >{`Gender: ${character.gender == null ? "no information" : character.gender}`}</p>
+          <p
+            className={classnames.descriptionItem}
+          >{`Birth year: ${character.yearOfBirth == null ? "no information" : character.yearOfBirth}`}</p>
+          <p
+            className={classnames.descriptionItem}
+          >{`Birth place: ${character.placeOfBirth == null ? "no information" : character.placeOfBirth}`}</p>
+          <p
+            className={classnames.descriptionItem}
+          >{`Height: ${character.height == null ? "no information" : character.height}`}</p>
+          <p
+            className={classnames.descriptionItem}
+          >{`Weight: ${character.weight == null ? "no information" : character.weight}`}</p>
+          <p
+            className={classnames.descriptionItem}
+          >{`Marital status: ${character.maritalStatus == null ? "no information" : character.maritalStatus}`}</p>
+          <NavLink className={classnames.closeButton} to={`/?page=${page}`}>
+            Close
+          </NavLink>
         </div>
       </div>
       <div

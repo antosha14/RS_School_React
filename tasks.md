@@ -74,3 +74,5 @@ Run npm install jest-environment-jsdom
 Run npm install identity-obj-proxy --save-dev
 In your root directory, create a jest.config.ts file
 https://www.youtube.com/watch?v=G-4zgIPsjkU
+
+![alt text](image.png)

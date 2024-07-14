@@ -16,7 +16,7 @@ import {
   useNavigation,
   useLocation,
 } from "react-router-dom";
-import classes from "./MainPage.module.css";
+import classNames from "./MainPage.module.css";
 
 interface InputState {
   query: string;
@@ -68,7 +68,7 @@ function MainPage() {
   return (
     <>
       <header>
-        <div className={classes.headerContainer}>
+        <div className={classNames.headerContainer}>
           <SearchForm
             onFormSubmission={handleSubmit}
             onInputChange={handleQueryChange}
@@ -84,8 +84,8 @@ function MainPage() {
           <div
             className={
               location.pathname.startsWith("/details")
-                ? classes.paginationContainerOver
-                : classes.paginationContainer
+                ? classNames.paginationContainerOver
+                : classNames.paginationContainer
             }
           >
             <CardGroup
@@ -94,7 +94,9 @@ function MainPage() {
           </div>
         )}
         {navigation.state === "loading" ? (
-          <LoadingSpinner></LoadingSpinner>
+          <div className={classNames.detailedCardContainer}>
+            <LoadingSpinner></LoadingSpinner>
+          </div>
         ) : (
           <Outlet></Outlet>
         )}

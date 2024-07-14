@@ -1,7 +1,59 @@
 .errorContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: auto;
+  background-color: var(--secondary-background);
+  color: var(--primary-font-color);
+}
+
+.buttonToMainPage {
+  background: #f50057;
+  border: 1px solid #f50057;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 16px;
+  min-height: 30px;
+  outline: 0;
+  padding: 6px 7px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  margin-top: 13px;
+}
+
+.buttonToMainPage:hover,
+.buttonToMainPage:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #f50057;
+}
+
+.buttonToMainPage:active {
+  opacity: 0.5;
+}
+
+.errorHeader {
+  font-size: 50px;
+}
+
+.errorMessage {
+  font-size: 30px;
 }

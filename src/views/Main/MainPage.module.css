@@ -20,3 +20,12 @@
   flex-direction: column;
   opacity: 0.2;
 }
+
+.detailedCardContainer {
+  min-width: 300px;
+  height: auto;
+  display: flex;
+  align-items: top;
+  max-height: 350px;
+  z-index: 2;
+}
