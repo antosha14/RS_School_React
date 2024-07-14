@@ -1,0 +1,11 @@
+:root {
+  --primary-background: conic-gradient(
+    from 90deg at -10% 100%,
+    #2b303b 0deg,
+    #2b303b 90deg,
+    #16181d 1turn
+  );
+  --secondary-background: rgb(35 39 47);
+  --emphasize-color: #f50057;
+  --primary-font-color: #fce4ec;
+}

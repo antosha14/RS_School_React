@@ -1,0 +1,31 @@
+.headerContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 40px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.paginationContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.paginationContainerOver {
+  display: flex;
+  flex-direction: column;
+  opacity: 0.2;
+}
+
+.detailedCardContainer {
+  min-width: 300px;
+  height: auto;
+  display: flex;
+  align-items: top;
+  max-height: 350px;
+  z-index: 2;
+}
