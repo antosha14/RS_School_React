@@ -10,7 +10,7 @@ function Input(props: inputProps) {
     <input
       onChange={props.onInputChange}
       value={props.currentQuery}
-      type="search"
+      type="text"
       placeholder="Search for characters in Star trek API"
     ></input>
   );

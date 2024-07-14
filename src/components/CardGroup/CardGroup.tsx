@@ -15,6 +15,8 @@ interface CardGroupState {
 }
 
 function CardGroup(props: CardGroupProps) {
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page");
   const [charactersList] = useState<CardGroupState>({
     searchedElements: props.searchedElements?.characters
       ? props.searchedElements.characters.map(
@@ -36,8 +38,7 @@ function CardGroup(props: CardGroupProps) {
         ? Math.ceil(props.searchedElements.characters.length / 10)
         : 1,
   });
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get("page");
+
   return (
     <>
       <ul className={classes.liContainer}>
