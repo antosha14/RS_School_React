@@ -25,6 +25,16 @@ span.listDescription {
   transition: 0.5s;
 }
 
+span.listDescriptionLight {
+  position: relative;
+  padding: 8px;
+  padding-left: 12px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+  color: var(--primary-font-color-light);
+}
+
 li.listItem:hover span.listDescription {
   color: #111;
 }

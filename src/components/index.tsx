@@ -8,6 +8,7 @@ import ButtonError from "./ButtonError/ButtonError";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import DetailedCard from "./DetailedCard/DetailedCard";
 import NavigationBar from "./NavigationBar/NavigationBar";
+import ToggleThemeButton from "./ToggleThemeButton/ToggleThemeButton";
 
 export {
   Input,
@@ -20,4 +21,5 @@ export {
   ErrorBoundary,
   DetailedCard,
   NavigationBar,
+  ToggleThemeButton,
 };

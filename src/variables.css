@@ -5,7 +5,16 @@
     #2b303b 90deg,
     #16181d 1turn
   );
+  --primary-background-light: #fce4ec;
+
   --secondary-background: rgb(35 39 47);
+  --secondary-background-light: #a4a4a4;
+
   --emphasize-color: #f50057;
+
   --primary-font-color: #fce4ec;
+  --primary-font-color-light: #16181d;
+
+  --primary-spinner-color: powderblue;
+  --primary-spinner-color-light: #f50057;
 }

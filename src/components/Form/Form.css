@@ -1,4 +1,5 @@
 form.formContainer {
   display: flex;
   width: 600px;
+  height: 50px;
 }

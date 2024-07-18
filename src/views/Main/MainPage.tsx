@@ -3,6 +3,7 @@ import {
   CardGroup,
   LoadingSpinner,
   ButtonError,
+  ToggleThemeButton,
 } from "../../components";
 import {
   startrekApiCall,
@@ -17,6 +18,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import classNames from "./MainPage.module.css";
+import { useTheme } from "../../store/ThemeContext";
 
 interface InputState {
   query: string;
@@ -34,6 +36,7 @@ function MainPage() {
   });
   const navigate = useNavigate();
   const location = useLocation();
+  const darkTheme = useTheme();
 
   const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
@@ -67,7 +70,9 @@ function MainPage() {
 
   return (
     <>
-      <header>
+      <header
+        className={darkTheme ? classNames.header : classNames.headerLight}
+      >
         <div className={classNames.headerContainer}>
           <SearchForm
             onFormSubmission={handleSubmit}
@@ -75,9 +80,14 @@ function MainPage() {
             currentQuery={inputState.query}
           ></SearchForm>
           <ButtonError></ButtonError>
+          <ToggleThemeButton></ToggleThemeButton>
         </div>
       </header>
-      <main className={inputState.isLoading ? "loading" : "list"}>
+      <main
+        className={
+          darkTheme ? classNames.mainContainer : classNames.mainContainerLight
+        }
+      >
         {inputState.isLoading ? (
           <LoadingSpinner></LoadingSpinner>
         ) : (

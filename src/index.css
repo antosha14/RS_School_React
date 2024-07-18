@@ -6,26 +6,5 @@
 
 body {
   margin: 0px;
-  height: 100vw;
-}
-
-header {
-  height: 10vh;
-  width: 100vw;
-  background-color: rgb(35 39 47);
-  display: flex;
-  align-items: center;
-}
-
-main {
-  min-height: 90vh;
-  height: auto;
-  width: 100vw;
-  background-image: conic-gradient(
-    from 90deg at -10% 100%,
-    #2b303b 0deg,
-    #2b303b 90deg,
-    #16181d 1turn
-  );
-  display: flex;
+  height: 100%;
 }

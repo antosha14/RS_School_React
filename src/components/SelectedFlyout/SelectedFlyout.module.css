@@ -1,0 +1,14 @@
+.flyoutContainer {
+  background-color: wheat;
+  position: absolute;
+  width: 200px;
+  height: 20px;
+}
+
+.buttonNext {
+  background: #000;
+}
+
+.buttonDownload {
+  background-color: aqua;
+}
