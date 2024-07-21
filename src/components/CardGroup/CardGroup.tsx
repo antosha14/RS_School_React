@@ -51,9 +51,7 @@ function CardGroup(props: CardGroupProps) {
           )
         ) : (
           <li className={classes.notFoundContainer}>
-            <span className="listDescription">
-              There isn't any character with this name
-            </span>
+            <span className={""}>There isn't any character with this name</span>
           </li>
         )}
       </ul>

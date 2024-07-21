@@ -1,4 +1,9 @@
 li.listItem {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
   position: relative;
   left: 0;
   color: #fce4ec;
@@ -7,8 +12,6 @@ li.listItem {
   border-left: 2px solid #f50057;
   transition: 0.5s;
   font-size: 25px;
-  display: flex;
-  flex-direction: column;
   min-width: 850px;
 }
 
@@ -23,6 +26,8 @@ span.listDescription {
   display: inline-block;
   z-index: 1;
   transition: 0.5s;
+  grid-row: 1;
+  grid-column: 1;
 }
 
 span.listDescriptionLight {
@@ -33,6 +38,8 @@ span.listDescriptionLight {
   z-index: 1;
   transition: 0.5s;
   color: var(--primary-font-color-light);
+  grid-row: 1;
+  grid-column: 1;
 }
 
 li.listItem:hover span.listDescription {
@@ -60,4 +67,6 @@ li.listItem:hover:before {
   color: #286ca3;
   padding-left: 12px;
   font-size: 19px;
+  grid-row: 2;
+  grid-column: 1;
 }

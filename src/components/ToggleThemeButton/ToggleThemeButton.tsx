@@ -5,8 +5,15 @@ function ToggleThemeButton() {
   const toggleTheme = useThemeUpdate();
   return (
     <div className={classnames.toggleThemeContainer}>
-      <input type="checkbox" id="switch" onChange={toggleTheme} />
-      <label htmlFor="switch">Toggle</label>
+      <input
+        className={classnames.themeInput}
+        type="checkbox"
+        id="switch"
+        onChange={toggleTheme}
+      />
+      <label className={classnames.themeLabel} htmlFor="switch">
+        Toggle
+      </label>
     </div>
   );
 }

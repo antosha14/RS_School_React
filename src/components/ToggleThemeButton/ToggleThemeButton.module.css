@@ -1,10 +1,10 @@
-input[type="checkbox"] {
+.themeInput[type="checkbox"] {
   height: 0;
   width: 0;
   visibility: hidden;
 }
 
-label {
+.themeLabel {
   cursor: pointer;
   text-indent: -9999px;
   width: 100px;
@@ -15,7 +15,7 @@ label {
   position: relative;
 }
 
-label:after {
+.themeLabel:after {
   content: "";
   position: absolute;
   top: 2.5px;
@@ -27,16 +27,16 @@ label:after {
   transition: 0.3s;
 }
 
-input:checked + label {
+.themeInput:checked + label {
   background: var(--emphasize-color);
 }
 
-input:checked + label:after {
+.themeInput:checked + label:after {
   left: calc(100% - 2px);
   transform: translateX(-100%);
 }
 
-label:active:after {
+.themeLabel:active:after {
   width: 93px;
 }
 

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface selectedStore {
-  selectedNumberOfEntries: number;
-}
+// interface selectedStore {
+//   selectedNumberOfEntries: number;
+// }
 
 const selectedSlice = createSlice({
   name: "selected",

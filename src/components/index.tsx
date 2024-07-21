@@ -9,6 +9,7 @@ import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import DetailedCard from "./DetailedCard/DetailedCard";
 import NavigationBar from "./NavigationBar/NavigationBar";
 import ToggleThemeButton from "./ToggleThemeButton/ToggleThemeButton";
+import ToggleAddStatusButton from "./ToggleAddStatusButton/ToggleAddStatusButton";
 
 export {
   Input,
@@ -22,4 +23,5 @@ export {
   DetailedCard,
   NavigationBar,
   ToggleThemeButton,
+  ToggleAddStatusButton,
 };

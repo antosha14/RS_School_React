@@ -1,14 +1,21 @@
 import classnames from "./ToggleAddStatusButton.module.css";
-import { useThemeUpdate } from "../../store/ThemeContext";
 
-function ToggleThemeButton() {
-  const toggleTheme = useThemeUpdate();
+function ToggleAddStatusButton({ uid }: { uid: string }) {
   return (
-    <div className={classnames.toggleThemeContainer}>
-      <input type="checkbox" id="switch" onChange={toggleTheme} />
-      <label htmlFor="switch">Toggle</label>
+    <div className={classnames.toggleStatusContainer}>
+      <input
+        className={`${classnames.tgl} ${classnames.tglSkewed}`}
+        type="checkbox"
+        id={uid}
+      />
+      <label
+        className={classnames.tglBtn}
+        data-tg-off="Add"
+        data-tg-on="Remove"
+        htmlFor={uid}
+      ></label>
     </div>
   );
 }
 
-export default ToggleThemeButton;
+export default ToggleAddStatusButton;

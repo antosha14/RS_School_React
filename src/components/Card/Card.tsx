@@ -2,8 +2,9 @@ import classes from "./Card.module.css";
 import { Character } from "../../services/startrekApiCall";
 import { NavLink } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { useTheme } from "../../store/ThemeContext";
+import ToggleAddStatusButton from "../ToggleAddStatusButton/ToggleAddStatusButton";
 
 interface CardData {
   cardData: Character;
@@ -16,7 +17,6 @@ function Card(props: CardData) {
   const description: string = `${props.index}. ${props.cardData.name}`;
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
-  const dispatch = useDispatch();
   const darkTheme = useTheme();
 
   // const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +28,7 @@ function Card(props: CardData) {
   // };
 
   return (
-    <li className={classes.listItem}>
+    <li className={classes.listItem}> 
       <span
         className={
           darkTheme ? classes.listDescription : classes.listDescriptionLight
@@ -42,12 +42,7 @@ function Card(props: CardData) {
       >
         Learn more →
       </NavLink>
-      <input
-        type="checkbox"
-        onChange={() => {
-          console.log("Hi");
-        }}
-      ></input>
+      <ToggleAddStatusButton uid={props.uid}></ToggleAddStatusButton>
     </li>
   );
 }
