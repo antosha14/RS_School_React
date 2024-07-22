@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { useTheme } from "../../store/ThemeContext";
 import ToggleAddStatusButton from "../ToggleAddStatusButton/ToggleAddStatusButton";
 
+
 interface CardData {
   cardData: Character;
   key: string;
@@ -19,16 +20,8 @@ function Card(props: CardData) {
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
   const darkTheme = useTheme();
 
-  // const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.checked === true) {
-  //     dispatch(selectionActions.addEntryToSelected("UID"));
-  //   } else {
-  //     dispatch(selectionActions.deleteEntryFromSelected("UID"));
-  //   }
-  // };
-
   return (
-    <li className={classes.listItem}> 
+    <li className={classes.listItem}>
       <span
         className={
           darkTheme ? classes.listDescription : classes.listDescriptionLight

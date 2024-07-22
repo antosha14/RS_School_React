@@ -1,18 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// interface selectedStore {
-//   selectedNumberOfEntries: number;
-// }
-
 const selectedSlice = createSlice({
-  name: "selected",
-  initialState: { selectedNumberOfEntries: 0, entriesSelected: [] },
+  name: "selection",
+  initialState: { selectedNumberOfEntries: 0, entriesSelected: [""] },
   reducers: {
     addEntryToSelected(state, action) {
-      action.payload;
+      state.entriesSelected.push(action.payload);
     },
     deleteEntryFromSelected(state, action) {
-      action.payload;
+      const index = state.entriesSelected.indexOf(action.payload);
+      state.entriesSelected.splice(index, 1);
     },
     downloadAllSelectedEntries() {},
     unselectAllEntries() {},
