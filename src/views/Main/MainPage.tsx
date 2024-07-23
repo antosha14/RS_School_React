@@ -4,6 +4,7 @@ import {
   LoadingSpinner,
   ButtonError,
   ToggleThemeButton,
+  Flyout,
 } from "../../components";
 import {
   startrekApiCall,
@@ -11,14 +12,12 @@ import {
 } from "../../services/startrekApiCall";
 import { useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import {
-  Outlet,
-  useNavigate,
-  useNavigation,
-  useLocation,
-} from "react-router-dom";
+import { Outlet, useNavigate, useParams, useLocation } from "react-router-dom";
 import classNames from "./MainPage.module.css";
 import { useTheme } from "../../store/ThemeContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { useGetDetailedCharacterDataQuery } from "../../services/apiSlice";
 
 interface InputState {
   query: string;
@@ -27,7 +26,6 @@ interface InputState {
 }
 
 function MainPage() {
-  const navigation = useNavigation();
   const [initialQuery, setPrevQuery] = useLocalStorage("prevQuery");
   const [inputState, setInputState] = useState<InputState>({
     query: initialQuery,
@@ -37,6 +35,18 @@ function MainPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const darkTheme = useTheme();
+  const showFlyout = useSelector(
+    (state: RootState) => state.selection.selectedNumberOfEntries > 0,
+  );
+
+  const searchParams = useParams();
+  const uid = searchParams.uid ? searchParams.uid : "";
+  const {
+    data: detailedCharacterData,
+    isLoading: detailedIsLoading,
+    isSuccess: detailedIsSuccess,
+    isError: detailedIsError,
+  } = useGetDetailedCharacterDataQuery(uid);
 
   const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
@@ -67,6 +77,27 @@ function MainPage() {
       return { ...prevState, query: event.target.value };
     });
   };
+
+  let characterDetails;
+  if (inputState.isLoading || uid == "") {
+    characterDetails = <></>;
+  } else if (detailedIsLoading) {
+    characterDetails = (
+      <div className={classNames.detailedCardContainer}>
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
+  } else if (detailedIsSuccess) {
+    characterDetails = (
+      <Outlet context={{ character: detailedCharacterData.character }}></Outlet>
+    );
+  } else if (detailedIsError) {
+    characterDetails = (
+      <div className={classNames.detailedCardContainer}>
+        <p>Error Loading Detailed Character Data</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -103,14 +134,9 @@ function MainPage() {
             ></CardGroup>
           </div>
         )}
-        {navigation.state === "loading" ? (
-          <div className={classNames.detailedCardContainer}>
-            <LoadingSpinner></LoadingSpinner>
-          </div>
-        ) : (
-          <Outlet></Outlet>
-        )}
+        {characterDetails}
       </main>
+      {showFlyout ? <Flyout></Flyout> : <></>}
     </>
   );
 }

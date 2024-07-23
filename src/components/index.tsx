@@ -10,6 +10,7 @@ import DetailedCard from "./DetailedCard/DetailedCard";
 import NavigationBar from "./NavigationBar/NavigationBar";
 import ToggleThemeButton from "./ToggleThemeButton/ToggleThemeButton";
 import ToggleAddStatusButton from "./ToggleAddStatusButton/ToggleAddStatusButton";
+import Flyout from "./SelectedFlyout/SelectedFlyout";
 
 export {
   Input,
@@ -24,4 +25,5 @@ export {
   NavigationBar,
   ToggleThemeButton,
   ToggleAddStatusButton,
+  Flyout,
 };

@@ -1,7 +1,6 @@
 import { MainPage, PageNotFoundPage } from "./views";
 import { ErrorBoundary, DetailedCard } from "./components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { detailedDataApiCall } from "./services/detailedDataApiCall";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +14,6 @@ const router = createBrowserRouter([
       {
         path: "/details/:uid",
         element: <DetailedCard />,
-        loader: detailedDataApiCall,
       },
     ],
   },

@@ -1,10 +1,14 @@
-import { useLoaderData, NavLink, useSearchParams } from "react-router-dom";
+import { NavLink, useOutletContext, useSearchParams } from "react-router-dom";
 import classnames from "./DetailedCard.module.css";
 import { Character } from "../../services/detailedDataApiCall";
 import { useNavigate } from "react-router-dom";
 
+interface OutletContextProps {
+  character: Character;
+}
+
 function DetailedCard() {
-  const character = useLoaderData() as Character;
+  const { character } = useOutletContext<OutletContextProps>();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
