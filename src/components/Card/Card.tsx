@@ -36,7 +36,7 @@ function Card(props: CardData) {
       >
         Learn more →
       </NavLink>
-      <ToggleAddStatusButton uid={props.uid}></ToggleAddStatusButton>
+      <ToggleAddStatusButton character={props.cardData}></ToggleAddStatusButton>
     </li>
   );
 }

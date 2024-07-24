@@ -2,7 +2,6 @@ import {
   SearchForm,
   CardGroup,
   LoadingSpinner,
-  ButtonError,
   ToggleThemeButton,
   Flyout,
 } from "../../components";
@@ -135,7 +134,6 @@ function MainPage() {
             onInputChange={handleQueryChange}
             currentQuery={inputState.query}
           ></SearchForm>
-          <ButtonError></ButtonError>
           <ToggleThemeButton></ToggleThemeButton>
         </div>
       </header>

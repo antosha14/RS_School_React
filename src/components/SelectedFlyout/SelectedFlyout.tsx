@@ -2,20 +2,24 @@ import classnames from "./SelectedFlyout.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { flyoutActions } from "../../store/flyout";
+import charactersToCsv from "../../services/charactersToCsv";
 
 function Flyout() {
   const selectedNumberOfEntries = useSelector(
     (state: RootState) => state.selection.selectedNumberOfEntries,
   );
+  const selectedEntries = useSelector(
+    (state: RootState) => state.selection.entriesSelected,
+  );
+
   const dispatch = useDispatch();
 
   const unselectAllHandler = () => {
     dispatch(flyoutActions.unselectAllEntries());
   };
 
-  const downloadHandler = () => {
-    dispatch(flyoutActions.downloadAllSelectedEntries());
-  };
+  const charactersCsv = charactersToCsv(selectedEntries);
+  const csvURL = URL.createObjectURL(charactersCsv);
 
   return (
     <div className={classnames.flyoutContainer}>
@@ -28,9 +32,13 @@ function Flyout() {
       >
         Unselect all
       </button>
-      <button className={classnames.buttonDownload} onClick={downloadHandler}>
+      <a
+        className={classnames.buttonDownload}
+        download={`${selectedNumberOfEntries}_characters.csv`}
+        href={csvURL}
+      >
         Download
-      </button>
+      </a>
     </div>
   );
 }
