@@ -6,17 +6,13 @@ import {
   ToggleThemeButton,
   Flyout,
 } from "../../components";
-import {
-  startrekApiCall,
-  StartrekApiResponse,
-} from "../../services/startrekApiCall";
+import { StartrekApiResponse } from "../../services/startrekApiCall";
 import { useState, useEffect } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import {
   Outlet,
   useNavigate,
   useParams,
-  useLocation,
   useSearchParams,
 } from "react-router-dom";
 import classNames from "./MainPage.module.css";
@@ -32,7 +28,6 @@ import { fetchedItemsActions } from "../../store/pageItems";
 interface InputState {
   query: string;
   searchedElements: StartrekApiResponse | null;
-  isLoading: boolean;
 }
 
 function MainPage() {
@@ -40,10 +35,8 @@ function MainPage() {
   const [inputState, setInputState] = useState<InputState>({
     query: initialQuery,
     searchedElements: null,
-    isLoading: true,
   });
   const navigate = useNavigate();
-  const location = useLocation();
   const darkTheme = useTheme();
   const dispatch = useDispatch();
   const showFlyout = useSelector(
@@ -74,12 +67,8 @@ function MainPage() {
     ? String(queryParams.get("query"))
     : "";
 
-  const {
-    data: charactersData,
-    isFetching: listIsFetching,
-    isSuccess: listFetchingIsSuccess,
-    isError: listFetchingIsError,
-  } = useGetCharactersQuery(query);
+  const { data: charactersData, isFetching: listIsFetching } =
+    useGetCharactersQuery(query);
 
   const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
@@ -88,21 +77,6 @@ function MainPage() {
     }
 
     navigate(`/?query=${inputState.query}&page=1`);
-    setInputState((prevState: InputState) => {
-      return { ...prevState, isLoading: true };
-    });
-
-    startrekApiCall(inputState.query.toString())
-      .then((response: StartrekApiResponse) => {
-        setInputState((prevState: InputState) => {
-          return { ...prevState, searchedElements: response };
-        });
-      })
-      .finally(() => {
-        setInputState((prevState: InputState) => {
-          return { ...prevState, isLoading: false };
-        });
-      });
   };
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,24 +86,18 @@ function MainPage() {
   };
 
   let fetchedCharacters;
-  if (inputState.isLoading) {
+  if (listIsFetching) {
     fetchedCharacters = <LoadingSpinner></LoadingSpinner>;
   } else {
     fetchedCharacters = (
-      <div
-        className={
-          location.pathname.startsWith("/details")
-            ? classNames.paginationContainerOver
-            : classNames.paginationContainer
-        }
-      >
-        <CardGroup searchedElements={inputState.searchedElements}></CardGroup>
+      <div className={classNames.paginationContainer}>
+        <CardGroup searchedElements={charactersData}></CardGroup>
       </div>
     );
   }
 
   let characterDetails;
-  if (inputState.isLoading || uid == "") {
+  if (listIsFetching || uid == "") {
     characterDetails = <></>;
   } else if (detailedIsFetching) {
     characterDetails = (
