@@ -6,7 +6,6 @@ import {
   ToggleThemeButton,
   Flyout,
 } from "../../components";
-import { StartrekApiResponse } from "../../services/apiSlice";
 import { useState, useEffect } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import {
@@ -27,14 +26,12 @@ import { fetchedItemsActions } from "../../store/pageItems";
 
 interface InputState {
   query: string;
-  searchedElements: StartrekApiResponse | null;
 }
 
 function MainPage() {
   const [initialQuery, setPrevQuery] = useLocalStorage("prevQuery");
   const [inputState, setInputState] = useState<InputState>({
     query: initialQuery,
-    searchedElements: null,
   });
   const navigate = useNavigate();
   const darkTheme = useTheme();
@@ -69,6 +66,16 @@ function MainPage() {
 
   const { data: charactersData, isFetching: listIsFetching } =
     useGetCharactersQuery(query);
+
+  useEffect(() => {
+    if (charactersData) {
+      dispatch(
+        fetchedItemsActions.addFetchedCharactersToStore(
+          charactersData.characters,
+        ),
+      );
+    }
+  }, [charactersData, dispatch]);
 
   const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
