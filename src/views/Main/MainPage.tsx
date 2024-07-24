@@ -10,14 +10,24 @@ import {
   startrekApiCall,
   StartrekApiResponse,
 } from "../../services/startrekApiCall";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { Outlet, useNavigate, useParams, useLocation } from "react-router-dom";
+import {
+  Outlet,
+  useNavigate,
+  useParams,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom";
 import classNames from "./MainPage.module.css";
 import { useTheme } from "../../store/ThemeContext";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
-import { useGetDetailedCharacterDataQuery } from "../../services/apiSlice";
+import {
+  useGetCharactersQuery,
+  useGetDetailedCharacterDataQuery,
+} from "../../services/apiSlice";
+import { fetchedItemsActions } from "../../store/pageItems";
 
 interface InputState {
   query: string;
@@ -35,6 +45,7 @@ function MainPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const darkTheme = useTheme();
+  const dispatch = useDispatch();
   const showFlyout = useSelector(
     (state: RootState) => state.selection.selectedNumberOfEntries > 0,
   );
@@ -43,10 +54,32 @@ function MainPage() {
   const uid = searchParams.uid ? searchParams.uid : "";
   const {
     data: detailedCharacterData,
-    isLoading: detailedIsLoading,
+    isFetching: detailedIsFetching,
     isSuccess: detailedIsSuccess,
     isError: detailedIsError,
   } = useGetDetailedCharacterDataQuery(uid);
+
+  useEffect(() => {
+    if (detailedCharacterData) {
+      dispatch(
+        fetchedItemsActions.addFetchedDetailedCharacterToStore(
+          detailedCharacterData.character,
+        ),
+      );
+    }
+  }, [detailedCharacterData, dispatch]);
+
+  const [queryParams] = useSearchParams();
+  const query = queryParams.get("query")
+    ? String(queryParams.get("query"))
+    : "";
+
+  const {
+    data: charactersData,
+    isFetching: listIsFetching,
+    isSuccess: listFetchingIsSuccess,
+    isError: listFetchingIsError,
+  } = useGetCharactersQuery(query);
 
   const handleSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
@@ -54,7 +87,7 @@ function MainPage() {
       setPrevQuery(inputState.query);
     }
 
-    navigate(`/?page=1`);
+    navigate(`/?query=${inputState.query}&page=1`);
     setInputState((prevState: InputState) => {
       return { ...prevState, isLoading: true };
     });
@@ -78,10 +111,27 @@ function MainPage() {
     });
   };
 
+  let fetchedCharacters;
+  if (inputState.isLoading) {
+    fetchedCharacters = <LoadingSpinner></LoadingSpinner>;
+  } else {
+    fetchedCharacters = (
+      <div
+        className={
+          location.pathname.startsWith("/details")
+            ? classNames.paginationContainerOver
+            : classNames.paginationContainer
+        }
+      >
+        <CardGroup searchedElements={inputState.searchedElements}></CardGroup>
+      </div>
+    );
+  }
+
   let characterDetails;
   if (inputState.isLoading || uid == "") {
     characterDetails = <></>;
-  } else if (detailedIsLoading) {
+  } else if (detailedIsFetching) {
     characterDetails = (
       <div className={classNames.detailedCardContainer}>
         <LoadingSpinner></LoadingSpinner>
@@ -119,21 +169,7 @@ function MainPage() {
           darkTheme ? classNames.mainContainer : classNames.mainContainerLight
         }
       >
-        {inputState.isLoading ? (
-          <LoadingSpinner></LoadingSpinner>
-        ) : (
-          <div
-            className={
-              location.pathname.startsWith("/details")
-                ? classNames.paginationContainerOver
-                : classNames.paginationContainer
-            }
-          >
-            <CardGroup
-              searchedElements={inputState.searchedElements}
-            ></CardGroup>
-          </div>
-        )}
+        {fetchedCharacters}
         {characterDetails}
       </main>
       {showFlyout ? <Flyout></Flyout> : <></>}

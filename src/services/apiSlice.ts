@@ -1,11 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Character } from "./detailedDataApiCall";
 
 const baseURL = "https://stapi.co/api/v1/rest/character";
-
-interface detailedResponse {
-  character: Character;
-}
 
 export const apiSlice = createApi({
   reducerPath: "api",

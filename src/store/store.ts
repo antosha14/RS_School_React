@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import selectionReducer from "./flyout";
 import { apiSlice } from "../services/apiSlice";
+import fetchedItemsReducer from "./pageItems";
 
 const store = configureStore({
   reducer: {
     selection: selectionReducer,
+    fetchedItems: fetchedItemsReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

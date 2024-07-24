@@ -3,10 +3,12 @@ import { Character } from "../services/detailedDataApiCall";
 
 interface State {
   characters: Character[];
+  detailedCharacter: Character | string;
 }
 
 const initialState: State = {
   characters: [],
+  detailedCharacter: "",
 };
 
 const fetchedItemsSlice = createSlice({
@@ -14,7 +16,10 @@ const fetchedItemsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addFetchedCharactersToStore(state, action) {
-      state.characters.push(action.payload);
+      state.characters = action.payload;
+    },
+    addFetchedDetailedCharacterToStore(state, action) {
+      state.detailedCharacter = action.payload;
     },
   },
 });

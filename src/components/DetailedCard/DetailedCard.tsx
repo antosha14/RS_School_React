@@ -9,9 +9,13 @@ interface OutletContextProps {
 
 function DetailedCard() {
   const { character } = useOutletContext<OutletContextProps>();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
+  const query = searchParams.get("query")
+    ? String(searchParams.get("query"))
+    : "";
+
   return (
     <>
       <div className={classnames.detailedCardContainer}>
@@ -45,7 +49,7 @@ function DetailedCard() {
       <div
         className={classnames.appWrapper}
         onClick={() => {
-          navigate(`/?page=${page}`);
+          navigate(`/?query=${query}&page=${page}`);
         }}
       ></div>
     </>
