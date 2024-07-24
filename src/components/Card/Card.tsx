@@ -1,8 +1,7 @@
 import classes from "./Card.module.css";
-import { Character } from "../../services/startrekApiCall";
+import { Character } from "../../services/apiSlice";
 import { NavLink } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-// import { useDispatch } from "react-redux";
 import { useTheme } from "../../store/ThemeContext";
 import ToggleAddStatusButton from "../ToggleAddStatusButton/ToggleAddStatusButton";
 

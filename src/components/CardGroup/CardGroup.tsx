@@ -1,6 +1,6 @@
 import classes from "./CardGroup.module.css";
 import { Card } from "../index";
-import { StartrekApiResponse, Character } from "../../services/startrekApiCall";
+import { StartrekApiResponse, Character } from "../../services/apiSlice";
 import { useState, JSX } from "react";
 import { NavigationBar } from "../index";
 import { useSearchParams } from "react-router-dom";

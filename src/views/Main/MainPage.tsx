@@ -6,7 +6,7 @@ import {
   ToggleThemeButton,
   Flyout,
 } from "../../components";
-import { StartrekApiResponse } from "../../services/startrekApiCall";
+import { StartrekApiResponse } from "../../services/apiSlice";
 import { useState, useEffect } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import {

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Character } from "../services/detailedDataApiCall";
+import { Character } from "../services/apiSlice";
 
 interface State {
   characters: Character[];

@@ -1,6 +1,6 @@
 import { NavLink, useOutletContext, useSearchParams } from "react-router-dom";
 import classnames from "./DetailedCard.module.css";
-import { Character } from "../../services/detailedDataApiCall";
+import { Character } from "../../services/apiSlice";
 import { useNavigate } from "react-router-dom";
 
 interface OutletContextProps {

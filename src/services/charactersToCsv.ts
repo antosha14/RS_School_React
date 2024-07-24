@@ -1,4 +1,4 @@
-import { Character } from "./detailedDataApiCall";
+import { Character } from "./apiSlice";
 
 const charactersToCsv = (characters: Character[]) => {
   const headerOfCsvFile = Object.keys(characters[0]).join(",") + "\n";
