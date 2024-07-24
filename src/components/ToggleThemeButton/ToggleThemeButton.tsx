@@ -1,8 +1,9 @@
 import classnames from "./ToggleThemeButton.module.css";
-import { useThemeUpdate } from "../../store/ThemeContext";
+import { useTheme, useThemeUpdate } from "../../store/ThemeContext";
 
 function ToggleThemeButton() {
   const toggleTheme = useThemeUpdate();
+  const theme = useTheme();
   return (
     <div className={classnames.toggleThemeContainer}>
       <input
@@ -10,6 +11,7 @@ function ToggleThemeButton() {
         type="checkbox"
         id="switch"
         onChange={toggleTheme}
+        checked={!theme}
       />
       <label className={classnames.themeLabel} htmlFor="switch">
         Toggle
