@@ -16,8 +16,6 @@ const useThemeUpdate = () => {
 
 const ThemeProvider = ({ children }: { children: ReactElement }) => {
   const [darkTheme, setDarkTheme] = useState(initialTheme);
-
-  console.log(Boolean(localStorage.getItem("darkTheme")));
   function toggleTheme() {
     setDarkTheme((prevTheme) => {
       localStorage.setItem("darkTheme", `${!prevTheme}`);

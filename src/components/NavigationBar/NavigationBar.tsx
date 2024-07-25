@@ -9,6 +9,7 @@ function NavigationBar({ depth }: { depth: number }) {
   const query = searchParams.get("query")
     ? String(searchParams.get("query"))
     : "";
+
   const navList: JSX.Element[] = [];
   for (let i = 1; i <= depth; i++) {
     navList.push(
@@ -35,7 +36,7 @@ function NavigationBar({ depth }: { depth: number }) {
         </NavLink>
       )}
 
-      {navList}
+      {navList.slice(Math.max(0, page - 4), Math.min(depth, page + 4))}
       {page == depth ? (
         ""
       ) : (

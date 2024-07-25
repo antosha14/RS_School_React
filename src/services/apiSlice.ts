@@ -50,10 +50,20 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
   endpoints: (builder) => ({
     getCharacters: builder.query({
-      query: (characterName: string) => {
+      query: ({
+        characterName,
+        page,
+      }: {
+        characterName: string;
+        page: number;
+      }) => {
         const trimmedRequest = characterName.trim();
+        const urlSearchParams = new URLSearchParams({
+          pageNumber: `${page - 1}`,
+          pageSize: "10",
+        });
         return {
-          url: "/search",
+          url: `/search?${urlSearchParams}`,
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",

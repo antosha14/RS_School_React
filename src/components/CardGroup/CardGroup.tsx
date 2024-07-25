@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 interface CardGroupProps {
   searchedElements: StartrekApiResponse | null;
+  depth: number;
 }
 
 interface CardGroupState {
@@ -25,18 +26,14 @@ function CardGroup(props: CardGroupProps) {
               <Card
                 cardData={character}
                 key={character.uid}
-                index={index + 1}
+                index={index + 1 + (Number(page) - 1) * 10}
                 uid={character.uid}
               ></Card>
             );
           },
         )
       : null,
-    depth:
-      props.searchedElements?.characters &&
-      props.searchedElements?.characters.length !== 0
-        ? Math.ceil(props.searchedElements.characters.length / 10)
-        : 1,
+    depth: props.depth !== 0 ? props.depth : 1,
   });
 
   return (
@@ -45,10 +42,7 @@ function CardGroup(props: CardGroupProps) {
         {charactersList.searchedElements &&
         charactersList.searchedElements.length != 0 &&
         page ? (
-          charactersList.searchedElements.slice(
-            Number(page) * 10 - 10,
-            Math.min(Number(page) * 10, charactersList.searchedElements.length),
-          )
+          charactersList.searchedElements
         ) : (
           <li className={classes.notFoundContainer}>
             <span className={""}>There isn't any character with this name</span>

@@ -62,9 +62,10 @@ function MainPage() {
   const query = queryParams.get("query")
     ? String(queryParams.get("query"))
     : "";
+  const page = queryParams.get("page") ? Number(queryParams.get("page")) : 1;
 
   const { data: charactersData, isFetching: listIsFetching } =
-    useGetCharactersQuery(query);
+    useGetCharactersQuery({ characterName: query, page: Number(page) });
 
   useEffect(() => {
     if (charactersData) {
@@ -97,7 +98,11 @@ function MainPage() {
   } else {
     fetchedCharacters = (
       <div className={classNames.paginationContainer}>
-        <CardGroup searchedElements={charactersData}></CardGroup>
+        <CardGroup
+          key={page}
+          searchedElements={charactersData}
+          depth={charactersData.page.totalPages}
+        ></CardGroup>
       </div>
     );
   }
