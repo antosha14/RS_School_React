@@ -1,6 +1,6 @@
 import CardGroup from "./CardGroup";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
+import { renderWithContext } from "../../tests/testingUtils/renderWithContext";
 
 const emptyResp = {
   page: {
@@ -23,8 +23,8 @@ const respWith13Characters = {
     pageNumber: 0,
     pageSize: 50,
     numberOfElements: 0,
-    totalElements: 0,
-    totalPages: 0,
+    totalElements: 14,
+    totalPages: 2,
     firstPage: true,
     lastPage: true,
   },
@@ -374,26 +374,25 @@ const respWith13Characters = {
 };
 
 describe("Card Group tests", () => {
-  it("appropriate message is displayed if no cards are present", () => {
-    render(
-      <MemoryRouter>
-        <CardGroup searchedElements={emptyResp}></CardGroup>
-      </MemoryRouter>,
+  it("Appropriate message is displayed if no cards are present", () => {
+    renderWithContext(
+      <CardGroup
+        searchedElements={emptyResp}
+        depth={emptyResp.page.totalPages}
+      ></CardGroup>,
+      {},
     );
     const notFoundMessage = screen.getByText(/isn't any character/);
     expect(notFoundMessage).toBeInTheDocument();
   });
 
-  it("component renders 13 cards, when array of 13 characters is passed", () => {
-    render(
-      <MemoryRouter initialEntries={["/?page=1"]}>
-        <CardGroup searchedElements={respWith13Characters}></CardGroup>
-      </MemoryRouter>,
-    );
-    render(
-      <MemoryRouter initialEntries={["/?page=2"]}>
-        <CardGroup searchedElements={respWith13Characters}></CardGroup>
-      </MemoryRouter>,
+  it("Component renders 13 cards, when array of 13 characters is passed", () => {
+    renderWithContext(
+      <CardGroup
+        searchedElements={respWith13Characters}
+        depth={respWith13Characters.page.totalPages}
+      ></CardGroup>,
+      { route: "/?page=1" },
     );
 
     const quiredElements = screen.getAllByRole("listitem");

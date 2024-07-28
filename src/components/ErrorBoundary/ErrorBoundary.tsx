@@ -36,9 +36,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         <div className={classnames.errorContainer}>
           <h1 className={classnames.errorHeader}>An error occurred!</h1>
           <p className={classnames.errorMessage}>
-            {this.state.error?.toString() == "Error: Red button"
-              ? `You pressed the wrong button ${String.fromCodePoint(0x1f621)}`
-              : "Unknown error has happened"}
+            {"Unknown error has happened"}
           </p>
           <NavLink
             to={"/"}

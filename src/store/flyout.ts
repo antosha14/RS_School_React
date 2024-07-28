@@ -32,4 +32,9 @@ const selectedSlice = createSlice({
 });
 
 export const flyoutActions = selectedSlice.actions;
+export const {
+  addEntryToSelected,
+  deleteEntryFromSelected,
+  unselectAllEntries,
+} = selectedSlice.actions;
 export default selectedSlice.reducer;

@@ -41,13 +41,17 @@ function DetailedCard() {
           <p
             className={classnames.descriptionItem}
           >{`Marital status: ${character.maritalStatus == null ? "no information" : character.maritalStatus}`}</p>
-          <NavLink className={classnames.closeButton} to={`/?page=${page}`}>
+          <NavLink
+            className={classnames.closeButton}
+            to={`/?query=${query}&page=${page}`}
+          >
             Close
           </NavLink>
         </div>
       </div>
       <div
         className={classnames.appWrapper}
+        data-testid="app-wrapper"
         onClick={() => {
           navigate(`/?query=${query}&page=${page}`);
         }}

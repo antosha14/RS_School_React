@@ -25,4 +25,8 @@ const fetchedItemsSlice = createSlice({
 });
 
 export const fetchedItemsActions = fetchedItemsSlice.actions;
+export const {
+  addFetchedCharactersToStore,
+  addFetchedDetailedCharacterToStore,
+} = fetchedItemsSlice.actions;
 export default fetchedItemsSlice.reducer;
