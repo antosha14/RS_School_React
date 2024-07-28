@@ -99,7 +99,7 @@ function MainPage() {
     fetchedCharacters = (
       <div className={classNames.paginationContainer}>
         <CardGroup
-          key={page}
+          key={`${query}&${page}`}
           searchedElements={charactersData}
           depth={charactersData.page.totalPages}
         ></CardGroup>
