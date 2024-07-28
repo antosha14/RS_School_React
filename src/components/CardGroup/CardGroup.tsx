@@ -4,6 +4,7 @@ import { StartrekApiResponse, Character } from "../../services/apiSlice";
 import { useState, JSX } from "react";
 import { NavigationBar } from "../index";
 import { useSearchParams } from "react-router-dom";
+import { useTheme } from "../../store/ThemeContext";
 
 interface CardGroupProps {
   searchedElements: StartrekApiResponse | null;
@@ -18,6 +19,7 @@ interface CardGroupState {
 function CardGroup(props: CardGroupProps) {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page");
+  const darkTheme = useTheme();
   const [charactersList] = useState<CardGroupState>({
     searchedElements: props.searchedElements?.characters
       ? props.searchedElements.characters.map(
@@ -44,7 +46,13 @@ function CardGroup(props: CardGroupProps) {
         page ? (
           charactersList.searchedElements
         ) : (
-          <li className={classes.notFoundContainer}>
+          <li
+            className={
+              darkTheme
+                ? classes.notFoundContainer
+                : classes.notFoundContainerLight
+            }
+          >
             <span className={""}>There isn't any character with this name</span>
           </li>
         )}
