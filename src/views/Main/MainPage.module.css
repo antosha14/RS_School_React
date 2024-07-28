@@ -1,0 +1,66 @@
+.header {
+  height: 10vh;
+  width: 100vw;
+  background-color: rgb(35 39 47);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerLight {
+  height: 10vh;
+  width: 100vw;
+  background-color: var(--secondary-background-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px;
+}
+
+.mainContainer {
+  min-height: 90vh;
+  height: auto;
+  width: 100vw;
+  background-image: var(--primary-background);
+  display: flex;
+}
+
+.mainContainerLight {
+  min-height: 90vh;
+  height: auto;
+  width: 100vw;
+  background-image: var(--primary-background-light);
+  display: flex;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.paginationContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.paginationContainerOver {
+  display: flex;
+  flex-direction: column;
+  opacity: 0.2;
+}
+
+.detailedCardContainer {
+  min-width: 300px;
+  height: auto;
+  display: flex;
+  align-items: top;
+  max-height: 350px;
+  z-index: 2;
+}
