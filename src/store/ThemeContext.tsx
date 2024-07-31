@@ -1,9 +1,12 @@
-import { createContext, ReactElement, useContext, useState } from "react";
+import {
+  createContext,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-const initialTheme =
-  localStorage.getItem("darkTheme") == "false" ? false : true;
-
-const ThemeContext = createContext(initialTheme);
+const ThemeContext = createContext("true");
 const ThemeUpdateContext = createContext(() => {});
 
 const useTheme = () => {
@@ -15,7 +18,18 @@ const useThemeUpdate = () => {
 };
 
 const ThemeProvider = ({ children }: { children: ReactElement }) => {
-  const [darkTheme, setDarkTheme] = useState(initialTheme);
+  const [darkTheme, setDarkTheme] = useState(true);
+
+  useEffect(() => {
+    const initialTheme =
+      localStorage.getItem("darkTheme") == "false" ? false : true;
+    if (initialTheme) {
+      setDarkTheme(true);
+    } else {
+      setDarkTheme(false);
+    }
+  }, []);
+
   function toggleTheme() {
     setDarkTheme((prevTheme) => {
       localStorage.setItem("darkTheme", `${!prevTheme}`);

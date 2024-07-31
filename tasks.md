@@ -1,6 +1,5 @@
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/redux.md
 2. Screenshot:
-   ![]()
 3. Deployment: https://rsschoolreact2024.netlify.app/
 4. Done 28.07.2024 / deadline 29.07.2024
 5. Score: 200 / 200
