@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 
-const ThemeContext = createContext("true");
+const ThemeContext = createContext(true);
 const ThemeUpdateContext = createContext(() => {});
 
 const useTheme = () => {

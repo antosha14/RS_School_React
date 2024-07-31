@@ -20,9 +20,13 @@ const selectedSlice = createSlice({
       state.selectedNumberOfEntries = state.entriesSelected.length;
     },
     deleteEntryFromSelected(state, action) {
-      const index = state.entriesSelected.indexOf(action.payload);
-      state.entriesSelected.splice(index, 1);
-      state.selectedNumberOfEntries = state.entriesSelected.length;
+      const index = state.entriesSelected.findIndex(
+        (currentObject) => currentObject.uid === action.payload.uid,
+      );
+      if (index !== -1) {
+        state.entriesSelected.splice(index, 1);
+        state.selectedNumberOfEntries = state.entriesSelected.length;
+      }
     },
     unselectAllEntries(state) {
       state.entriesSelected = [];
