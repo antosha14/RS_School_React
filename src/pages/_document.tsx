@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
+import { Head, Html, Main, NextScript } from "next/document";
 
 export const metadata: Metadata = {
   title: "RSSchool React 2024",
   description: "RS School React 2024",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Document() {
   return (
-    <html lang="en">
+    <Html lang="en">
+      <Head />
       <body>
-        <div id="root">{children}</div>
+        <Main />
+        <NextScript />
       </body>
-    </html>
+    </Html>
   );
 }

@@ -1,8 +1,8 @@
-import "./Button.css";
+import classnames from "./Button.module.css";
 
 function Button() {
   return (
-    <button type="submit" className="search">
+    <button type="submit" className={classnames.search}>
       Search
     </button>
   );

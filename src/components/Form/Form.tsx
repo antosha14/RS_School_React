@@ -1,6 +1,6 @@
-import "./Form.css";
 import { Input, Button } from "../index";
 import { useEffect } from "react";
+import classnames from "./Form.module.css";
 
 interface searchProps {
   onFormSubmission: (event?: React.FormEvent<HTMLFormElement>) => void;
@@ -15,7 +15,10 @@ function SearchForm(props: searchProps) {
   }, []);
 
   return (
-    <form onSubmit={props.onFormSubmission} className="formContainer">
+    <form
+      onSubmit={props.onFormSubmission}
+      className={classnames.formContainer}
+    >
       <Input
         onInputChange={props.onInputChange}
         currentQuery={props.currentQuery}
