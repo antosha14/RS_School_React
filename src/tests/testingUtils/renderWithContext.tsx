@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import store from "../../store/store";
-import { ThemeProvider } from "../../store/ThemeContext";
+import { ThemeProvider } from "../../contexts/ThemeContext";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
 export const renderWithContext = (

@@ -1,16 +1,42 @@
-import { useState, useEffect } from "react";
+const themeKey = "darkTheme";
+const queryKey = "currentQuery";
 
-const useLocalStorage = (key: string) => {
-  const [value, setValue] = useState(localStorage.getItem(key) || "");
+const useLocalStorage = () => {
+  const isServer = typeof window === "undefined";
 
-  useEffect(() => {
-    localStorage.setItem(key, value || "");
-    return () => {
-      localStorage.setItem(key, value || "");
-    };
-  }, [key, value]);
+  const setThemeInLocalStorage = (newDarkTheme: boolean): void => {
+    if (!isServer) {
+      localStorage.setItem(themeKey, JSON.stringify(newDarkTheme));
+    }
+  };
 
-  return [value, setValue] as const;
+  const getThemeFromLocalStorage = (): boolean => {
+    if (!isServer) {
+      return localStorage.getItem(themeKey) == "false" ? false : true;
+    }
+    return true;
+  };
+
+  const setQueryInLocalStorage = (newQuery: string): void => {
+    if (!isServer) {
+      localStorage.setItem(queryKey, JSON.stringify(newQuery));
+    }
+  };
+
+  const getQueryFromLocalStorage = (): string => {
+    if (!isServer) {
+      const currentQuery = localStorage.getItem(queryKey);
+      return currentQuery ? JSON.parse(currentQuery) : "";
+    }
+    return "";
+  };
+
+  return {
+    setThemeInLocalStorage,
+    getThemeFromLocalStorage,
+    setQueryInLocalStorage,
+    getQueryFromLocalStorage,
+  };
 };
 
 export default useLocalStorage;

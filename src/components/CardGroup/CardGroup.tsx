@@ -4,7 +4,7 @@ import { StartrekApiResponse, Character } from "../../services/apiSlice";
 import { useState, JSX } from "react";
 import { NavigationBar } from "../index";
 import { useSearchParams } from "react-router-dom";
-import { useTheme } from "../../store/ThemeContext";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface CardGroupProps {
   searchedElements: StartrekApiResponse | null;

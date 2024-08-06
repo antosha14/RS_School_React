@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createContext,
   ReactElement,
@@ -5,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const ThemeContext = createContext(true);
 const ThemeUpdateContext = createContext(() => {});
@@ -19,15 +22,10 @@ const useThemeUpdate = () => {
 
 const ThemeProvider = ({ children }: { children: ReactElement }) => {
   const [darkTheme, setDarkTheme] = useState(true);
-
+  const { getThemeFromLocalStorage } = useLocalStorage();
   useEffect(() => {
-    const initialTheme =
-      localStorage.getItem("darkTheme") == "false" ? false : true;
-    if (initialTheme) {
-      setDarkTheme(true);
-    } else {
-      setDarkTheme(false);
-    }
+    const initialTheme = getThemeFromLocalStorage();
+    setDarkTheme(initialTheme);
   }, []);
 
   function toggleTheme() {

@@ -1,5 +1,5 @@
 import classnames from "./ToggleThemeButton.module.css";
-import { useTheme, useThemeUpdate } from "../../store/ThemeContext";
+import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
 
 function ToggleThemeButton() {
   const toggleTheme = useThemeUpdate();
