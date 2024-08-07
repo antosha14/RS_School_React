@@ -1,15 +1,14 @@
-import { NavLink, useSearchParams } from "react-router-dom";
+import Link from "next/link";
 import classnames from "./DetailedCard.module.css";
 import { Character } from "../../services/apiSlice";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
+import useQueryParams from "../../hooks/useQueryParams";
 
 function DetailedCard({ character }: { character: Character }) {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
-  const query = searchParams.get("query")
-    ? String(searchParams.get("query"))
-    : "";
+  const router = useRouter();
+  const { currentQuery, currentPage } = useQueryParams();
+  const query = currentQuery;
+  const page = currentPage;
 
   return (
     <>
@@ -36,19 +35,20 @@ function DetailedCard({ character }: { character: Character }) {
           <p
             className={classnames.descriptionItem}
           >{`Marital status: ${character.maritalStatus == null ? "no information" : character.maritalStatus}`}</p>
-          <NavLink
+          <Link
             className={classnames.closeButton}
-            to={`/?query=${query}&page=${page}`}
+            href={`/?query=${query}&page=${page}`}
           >
             Close
-          </NavLink>
+          </Link>
         </div>
       </div>
       <div
         className={classnames.appWrapper}
+        q
         data-testid="app-wrapper"
         onClick={() => {
-          navigate(`/?query=${query}&page=${page}`);
+          router.push(`/?query=${query}&page=${page}`);
         }}
       ></div>
     </>

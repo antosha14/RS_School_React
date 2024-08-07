@@ -43,6 +43,10 @@ interface StartrekApiResponse {
   characters: Character[] | never[];
 }
 
+interface DetailedCharacterResponse {
+  character: Character;
+}
+
 const baseURL = "https://stapi.co/api/v1/rest/character";
 
 export const apiSlice = createApi({
@@ -85,4 +89,4 @@ export const apiSlice = createApi({
 
 export const { useGetCharactersQuery, useGetDetailedCharacterDataQuery } =
   apiSlice;
-export type { Character, StartrekApiResponse };
+export type { Character, StartrekApiResponse, DetailedCharacterResponse };

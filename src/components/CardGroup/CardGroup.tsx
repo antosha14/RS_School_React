@@ -3,7 +3,7 @@ import { Card } from "../index";
 import { StartrekApiResponse, Character } from "../../services/apiSlice";
 import { useState, JSX } from "react";
 import { NavigationBar } from "../index";
-import { useSearchParams } from "react-router-dom";
+import useQueryParams from "../../hooks/useQueryParams";
 import { useTheme } from "../../contexts/ThemeContext";
 
 interface CardGroupProps {
@@ -17,8 +17,8 @@ interface CardGroupState {
 }
 
 function CardGroup(props: CardGroupProps) {
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get("page");
+  const { currentPage } = useQueryParams();
+  const page = currentPage;
   const darkTheme = useTheme();
   const [charactersList] = useState<CardGroupState>({
     searchedElements: props.searchedElements?.characters

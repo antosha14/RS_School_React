@@ -1,9 +1,9 @@
+import Link from "next/link";
 import classes from "./Card.module.css";
 import { Character } from "../../services/apiSlice";
-import { NavLink } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
 import ToggleAddStatusButton from "../ToggleAddStatusButton/ToggleAddStatusButton";
+import useQueryParams from "../../hooks/useQueryParams";
 
 interface CardData {
   cardData: Character;
@@ -14,11 +14,10 @@ interface CardData {
 
 function Card(props: CardData) {
   const description: string = `${props.index}. ${props.cardData.name}`;
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
-  const query = searchParams.get("query")
-    ? String(searchParams.get("query"))
-    : "";
+  const { currentPage, currentQuery } = useQueryParams();
+  const page = currentPage;
+  const query = currentQuery;
+
   const darkTheme = useTheme();
 
   return (
@@ -30,12 +29,12 @@ function Card(props: CardData) {
       >
         {description}
       </span>
-      <NavLink
-        to={`/details/${props.uid}?query=${query}&page=${page}`}
+      <Link
+        href={`/?query=${query}&page=${page}&details=${props.uid}`}
         className={classes.learnMoreButton}
       >
         Learn more →
-      </NavLink>
+      </Link>
       <ToggleAddStatusButton character={props.cardData}></ToggleAddStatusButton>
     </li>
   );

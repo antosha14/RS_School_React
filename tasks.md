@@ -35,4 +35,4 @@ initialState: {character: {,…}, characterAPI: {queries: {,…}, mutations: {},
 Может меня поправят если я ошибаюсь) (изменено)
 СПОЙЛЕР
 
-refactor: form to work as a separate component without props, useLocalStorage hook to have setters/getters structure
+refactor: rewrite routing and links

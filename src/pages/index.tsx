@@ -1,93 +1,73 @@
-import { CardGroup, LoadingSpinner, Flyout, DetailedCard } from "../components";
-import { useEffect } from "react";
+import { CardGroup, Flyout, DetailedCard } from "../components";
+//import { useEffect } from "react";
 import classNames from "../styles/MainPage.module.css";
 import { useTheme } from "../contexts/ThemeContext";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import {
-  useGetCharactersQuery,
-  useGetDetailedCharacterDataQuery,
-} from "../services/apiSlice";
-import { fetchedItemsActions } from "../store/pageItems";
+//import { fetchedItemsActions } from "../store/pageItems";
 import { useRouter } from "next/router";
+import startrekApiCall from "../services/startrekApiCall";
+import { detailedDataApiCall } from "../services/detailedDataApiCall";
+import {
+  StartrekApiResponse,
+  DetailedCharacterResponse,
+} from "../services/apiSlice";
 
-export default function MainPage() {
+export default function MainPage({
+  characterList,
+  detailedCharacter,
+}: {
+  characterList: StartrekApiResponse;
+  detailedCharacter: string | DetailedCharacterResponse;
+}) {
   const navigate = useRouter();
   const darkTheme = useTheme();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const showFlyout = useSelector(
     (state: RootState) => state.selection.selectedNumberOfEntries > 0,
   );
 
-  const searchParams = navigate.query;
-  const uid = searchParams.uid ? searchParams.uid : "";
-  const {
-    data: detailedCharacterData,
-    isFetching: detailedIsFetching,
-    isSuccess: detailedIsSuccess,
-    isError: detailedIsError,
-  } = useGetDetailedCharacterDataQuery(uid);
-
-  useEffect(() => {
-    if (detailedCharacterData) {
-      dispatch(
-        fetchedItemsActions.addFetchedDetailedCharacterToStore(
-          detailedCharacterData.character,
-        ),
-      );
-    }
-  }, [detailedCharacterData, dispatch]);
-
   const queryParams = navigate.query;
   const query = queryParams["query"] ? String(queryParams["query"]) : "";
   const page = queryParams["page"] ? Number(queryParams["page"]) : 1;
+  const uid = queryParams["details"] ? String(queryParams["details"]) : "";
 
-  const { data: charactersData, isFetching: listIsFetching } =
-    useGetCharactersQuery({ characterName: query, page: Number(page) });
+  // useEffect(() => {
+  //   if (uid !== "" && typeof detailedCharacter !== "string") {
+  //     dispatch(
+  //       fetchedItemsActions.addFetchedDetailedCharacterToStore(
+  //         detailedCharacter.character,
+  //       ),
+  //     );
+  //   }
+  // }, [detailedCharacter, dispatch, uid]);
 
-  useEffect(() => {
-    if (charactersData) {
-      dispatch(
-        fetchedItemsActions.addFetchedCharactersToStore(
-          charactersData.characters,
-        ),
-      );
-    }
-  }, [charactersData, dispatch]);
+  // useEffect(() => {
+  //   if (charactersData) {
+  //     dispatch(
+  //       fetchedItemsActions.addFetchedCharactersToStore(
+  //         charactersData.characters,
+  //       ),
+  //     );
+  //   }
+  // }, [charactersData, dispatch]);
 
-  let fetchedCharacters;
-  if (listIsFetching) {
-    fetchedCharacters = <LoadingSpinner></LoadingSpinner>;
-  } else {
-    fetchedCharacters = (
-      <div className={classNames.paginationContainer}>
-        <CardGroup
-          key={`${query}&${page}`}
-          searchedElements={charactersData}
-          depth={charactersData.page.totalPages}
-        ></CardGroup>
-      </div>
-    );
-  }
+  const fetchedCharacters = (
+    <div className={classNames.paginationContainer}>
+      <CardGroup
+        key={`${query}&${page}`}
+        searchedElements={characterList}
+        depth={characterList.page.totalPages}
+      ></CardGroup>
+    </div>
+  );
 
   let characterDetails;
-  if (listIsFetching || uid == "") {
+  if (uid == "" || typeof detailedCharacter == "string") {
     characterDetails = <></>;
-  } else if (detailedIsFetching) {
+  } else {
     characterDetails = (
-      <div className={classNames.detailedCardContainer}>
-        <LoadingSpinner></LoadingSpinner>
-      </div>
-    );
-  } else if (detailedIsSuccess) {
-    characterDetails = (
-      <DetailedCard character={detailedCharacterData.character}></DetailedCard>
-    );
-  } else if (detailedIsError) {
-    characterDetails = (
-      <div className={classNames.detailedCardContainer}>
-        <p>Error Loading Detailed Character Data</p>
-      </div>
+      <DetailedCard character={detailedCharacter.character}></DetailedCard>
     );
   }
 
@@ -104,4 +84,23 @@ export default function MainPage() {
       {showFlyout ? <Flyout></Flyout> : <></>}
     </>
   );
+}
+
+interface contextProps {
+  query: { page?: string; query?: string; details?: string };
+}
+
+export async function getServerSideProps(context: contextProps) {
+  let { page, query, details } = context.query;
+  page = page == undefined ? "1" : page;
+  query = query == undefined ? "" : query;
+  details = details == undefined ? "" : details;
+
+  const charListResp = await startrekApiCall(query, Number(page));
+  const detailedCharResp =
+    details !== "" ? await detailedDataApiCall(details) : "";
+
+  return {
+    props: { characterList: charListResp, detailedCharacter: detailedCharResp },
+  };
 }

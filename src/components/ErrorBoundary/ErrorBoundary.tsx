@@ -1,6 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from "react";
 import classnames from "./ErrorBoundary.module.css";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -38,13 +38,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           <p className={classnames.errorMessage}>
             {"Unknown error has happened"}
           </p>
-          <NavLink
-            to={"/"}
+          <Link
+            href={"/"}
             onClick={this.handleClick}
             className={classnames.buttonToMainPage}
           >
             Reload the page
-          </NavLink>
+          </Link>
         </div>
       );
     }

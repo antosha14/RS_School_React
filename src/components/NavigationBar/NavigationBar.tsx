@@ -1,46 +1,39 @@
 import classnames from "./NavigationBar.module.css";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 import { JSX } from "react";
-import { useSearchParams } from "react-router-dom";
+import useQueryParams from "../../hooks/useQueryParams";
 
 function NavigationBar({ depth }: { depth: number }) {
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
-  const query = searchParams.get("query")
-    ? String(searchParams.get("query"))
-    : "";
+  const { currentQuery, currentPage } = useQueryParams();
+  const page = currentPage;
+  const query = currentQuery;
 
   const navList: JSX.Element[] = [];
   for (let i = 1; i <= depth; i++) {
     navList.push(
-      <NavLink
-        to={`/?query=${query}&page=${i}`}
+      <Link
+        href={`/?query=${query}&page=${i}`}
         className={page == i ? classnames.active : ""}
         key={i}
-        end
       >
         {i}
-      </NavLink>,
+      </Link>,
     );
   }
 
   return (
     <nav className={classnames.navigationContainer}>
       {page == 1 ? (
-        <NavLink to={`/?query=${query}&page=${page}`} end>
-          {"<<"}
-        </NavLink>
+        <Link href={`/?query=${query}&page=${page}`}>{"<<"}</Link>
       ) : (
-        <NavLink to={`/?query=${query}&page=${page - 1}`} end>
-          {"<<"}
-        </NavLink>
+        <Link href={`/?query=${query}&page=${page - 1}`}>{"<<"}</Link>
       )}
 
       {navList.slice(Math.max(0, page - 4), Math.min(depth, page + 4))}
       {page == depth ? (
         ""
       ) : (
-        <NavLink to={`/?query=${query}&page=${page + 1}`}>{">>"}</NavLink>
+        <Link href={`/?query=${query}&page=${page + 1}`}>{">>"}</Link>
       )}
     </nav>
   );
