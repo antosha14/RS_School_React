@@ -1,6 +1,7 @@
 import CardGroup from "./CardGroup";
 import { screen } from "@testing-library/react";
 import { renderWithContext } from "../../tests/testingUtils/renderWithContext";
+import mockRouter from "next-router-mock";
 
 const emptyResp = {
   page: {
@@ -18,7 +19,7 @@ const emptyResp = {
   characters: [],
 };
 
-const respWith13Characters = {
+const respWith9Characters = {
   page: {
     pageNumber: 0,
     pageSize: 50,
@@ -62,7 +63,7 @@ const respWith13Characters = {
       uid: "CHMA0000174718",
       name: "0718",
       gender: "M",
-      yearOfBirth: 2259,
+      yearOfBirth: "2259",
       monthOfBirth: null,
       dayOfBirth: null,
       placeOfBirth: null,
@@ -266,136 +267,43 @@ const respWith13Characters = {
       mirror: true,
       alternateReality: false,
     },
-    {
-      uid: "CHMA0000068580",
-      name: "A. Banda",
-      gender: null,
-      yearOfBirth: null,
-      monthOfBirth: null,
-      dayOfBirth: null,
-      placeOfBirth: null,
-      yearOfDeath: null,
-      monthOfDeath: null,
-      dayOfDeath: null,
-      placeOfDeath: null,
-      height: null,
-      weight: null,
-      deceased: null,
-      bloodType: null,
-      maritalStatus: null,
-      serialNumber: null,
-      hologramActivationDate: null,
-      hologramStatus: null,
-      hologramDateStatus: null,
-      hologram: false,
-      fictionalCharacter: false,
-      mirror: false,
-      alternateReality: false,
-    },
-    {
-      uid: "CHMA0000053843",
-      name: "A. Bormanis",
-      gender: null,
-      yearOfBirth: null,
-      monthOfBirth: null,
-      dayOfBirth: null,
-      placeOfBirth: null,
-      yearOfDeath: null,
-      monthOfDeath: null,
-      dayOfDeath: null,
-      placeOfDeath: null,
-      height: null,
-      weight: null,
-      deceased: null,
-      bloodType: null,
-      maritalStatus: null,
-      serialNumber: null,
-      hologramActivationDate: null,
-      hologramStatus: null,
-      hologramDateStatus: null,
-      hologram: false,
-      fictionalCharacter: false,
-      mirror: false,
-      alternateReality: false,
-    },
-    {
-      uid: "CHMA0000069222",
-      name: "A. Bro",
-      gender: null,
-      yearOfBirth: null,
-      monthOfBirth: null,
-      dayOfBirth: null,
-      placeOfBirth: null,
-      yearOfDeath: null,
-      monthOfDeath: null,
-      dayOfDeath: null,
-      placeOfDeath: null,
-      height: null,
-      weight: null,
-      deceased: null,
-      bloodType: null,
-      maritalStatus: null,
-      serialNumber: null,
-      hologramActivationDate: null,
-      hologramStatus: null,
-      hologramDateStatus: null,
-      hologram: false,
-      fictionalCharacter: false,
-      mirror: false,
-      alternateReality: false,
-    },
-    {
-      uid: "CHMA0000280434",
-      name: "A. Brock",
-      gender: null,
-      yearOfBirth: null,
-      monthOfBirth: null,
-      dayOfBirth: null,
-      placeOfBirth: null,
-      yearOfDeath: null,
-      monthOfDeath: null,
-      dayOfDeath: null,
-      placeOfDeath: null,
-      height: null,
-      weight: null,
-      deceased: null,
-      bloodType: null,
-      maritalStatus: null,
-      serialNumber: null,
-      hologramActivationDate: null,
-      hologramStatus: null,
-      hologramDateStatus: null,
-      hologram: false,
-      fictionalCharacter: false,
-      mirror: false,
-      alternateReality: false,
-    },
   ],
 };
 
+vi.mock("next/router", () => ({
+  useRouter: () => mockRouter,
+}));
+
 describe("Card Group tests", () => {
+  afterAll(() => {
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("Appropriate message is displayed if no cards are present", () => {
     renderWithContext(
       <CardGroup
         searchedElements={emptyResp}
         depth={emptyResp.page.totalPages}
       ></CardGroup>,
-      {},
     );
+
     const notFoundMessage = screen.getByText(/isn't any character/);
     expect(notFoundMessage).toBeInTheDocument();
   });
 
-  it("Component renders 13 cards, when array of 13 characters is passed", () => {
+  it("Component renders 9 cards, when array of 9 characters is passed", () => {
     renderWithContext(
       <CardGroup
-        searchedElements={respWith13Characters}
-        depth={respWith13Characters.page.totalPages}
+        searchedElements={respWith9Characters}
+        depth={respWith9Characters.page.totalPages}
       ></CardGroup>,
-      { route: "/?page=1" },
     );
 
     const quiredElements = screen.getAllByRole("listitem");
-    expect(quiredElements).toHaveLength(13);
+    expect(quiredElements).toHaveLength(9);
   });
 });

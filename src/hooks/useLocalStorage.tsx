@@ -19,7 +19,7 @@ const useLocalStorage = () => {
 
   const setQueryInLocalStorage = (newQuery: string): void => {
     if (!isServer) {
-      localStorage.setItem(queryKey, JSON.stringify(newQuery));
+      localStorage.setItem(queryKey, newQuery);
     }
   };
 

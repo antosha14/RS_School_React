@@ -2,15 +2,15 @@ import Card from "./Card";
 import { screen } from "@testing-library/react";
 import { renderWithContext } from "../../tests/testingUtils/renderWithContext";
 import userEvent from "@testing-library/user-event";
-import { Route, Routes } from "react-router-dom";
 import DetailedCard from "../DetailedCard/DetailedCard";
+import mockRouter from "next-router-mock";
 
 const mockedCardData = {
   cardData: {
     uid: "CHMA0000215045",
     name: "0413 Theta",
     gender: null,
-    yearOfBirth: 2000,
+    yearOfBirth: "2000",
     monthOfBirth: null,
     dayOfBirth: null,
     placeOfBirth: null,
@@ -37,40 +37,20 @@ const mockedCardData = {
   uid: "CHMA0000215045",
 };
 
-import {
-  useOutletContext,
-  useSearchParams,
-  useNavigate,
-} from "react-router-dom";
-
-vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
-  return {
-    ...actual,
-    useOutletContext: vi.fn(),
-    useSearchParams: vi.fn(),
-    useNavigate: vi.fn(),
-  };
-});
+vi.mock("next/router", () => ({
+  useRouter: () => mockRouter,
+}));
 
 describe("Card tests", () => {
-  const setup = (character = mockedCardData.cardData) => {
-    vi.mocked(useOutletContext).mockReturnValue({ character });
-    vi.mocked(useSearchParams).mockReturnValue([
-      new URLSearchParams(),
-      vi.fn(),
-    ]);
-    const mockNavigate = vi.fn();
-    vi.mocked(useNavigate).mockReturnValue(mockNavigate);
+  afterAll(() => {
+    vi.clearAllMocks();
+  });
 
-    return {
-      user: userEvent.setup(),
-      mockNavigate,
-    };
-  };
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
   it("The card component renders the relevant card data", () => {
-    setup();
     renderWithContext(
       <Card
         cardData={mockedCardData.cardData}
@@ -79,14 +59,15 @@ describe("Card tests", () => {
         uid={mockedCardData.uid}
       />,
     );
+
     const cardElement = screen.getByText(`1. 0413 Theta`);
     const learnMoreLink = screen.getByText(`Learn more →`);
+
     expect(cardElement).toBeInTheDocument();
     expect(learnMoreLink).toBeInTheDocument();
   });
 
   it("Link for right UID is in the document", async () => {
-    setup();
     renderWithContext(
       <Card
         cardData={mockedCardData.cardData}
@@ -98,32 +79,23 @@ describe("Card tests", () => {
     const learnMoreLink = screen.getByRole("link", { name: `Learn more →` });
     expect(learnMoreLink).toHaveAttribute(
       "href",
-      "/details/CHMA0000215045?query=&page=1",
+      "/?query=&page=1&details=CHMA0000215045",
     );
   });
 
   it("Clicking on a learn more opens a detailed card component", async () => {
-    setup();
     renderWithContext(
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Card
-              cardData={mockedCardData.cardData}
-              key={mockedCardData.uid}
-              index={mockedCardData.index + 1}
-              uid={mockedCardData.uid}
-            />
-          }
-        />{" "}
-        <Route path="/details/:uid" element={<DetailedCard />} />
-      </Routes>,
-      {
-        route: `/`,
-        path: `*`,
-      },
+      <>
+        <Card
+          cardData={mockedCardData.cardData}
+          key={mockedCardData.uid}
+          index={mockedCardData.index + 1}
+          uid={mockedCardData.uid}
+        />
+        <DetailedCard character={mockedCardData.cardData} />
+      </>,
     );
+
     const learnMoreLink = await screen.findByText(`Learn more →`);
     expect(learnMoreLink).toBeInTheDocument();
 

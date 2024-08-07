@@ -11,6 +11,7 @@ import Flyout from "./SelectedFlyout/SelectedFlyout";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import Layout from "./Layout/Layout";
 import Head from "next/head";
+import PageNotFoundPage from "./PageNotFound/PageNotFoundPage";
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   ErrorBoundary,
   Layout,
   Head,
+  PageNotFoundPage,
 };

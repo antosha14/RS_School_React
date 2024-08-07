@@ -1,23 +1,12 @@
-import { ReactNode } from "react";
+import { ReactElement } from "react";
 import { render } from "@testing-library/react";
-import { Provider } from "react-redux";
-import store from "../../store/store";
+import StoreProvider from "../../store/StoreProvider";
 import { ThemeProvider } from "../../contexts/ThemeContext";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
 
-export const renderWithContext = (
-  element: ReactNode,
-  { route = "/", path = "/" } = {},
-) => {
+export const renderWithContext = (element: ReactElement) => {
   return render(
-    <Provider store={store}>
-      <ThemeProvider>
-        <MemoryRouter initialEntries={[route]}>
-          <Routes>
-            <Route path={path} element={element} />
-          </Routes>
-        </MemoryRouter>
-      </ThemeProvider>
-    </Provider>,
+    <StoreProvider>
+      <ThemeProvider>{element}</ThemeProvider>
+    </StoreProvider>,
   );
 };

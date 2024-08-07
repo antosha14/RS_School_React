@@ -1,8 +1,21 @@
 import NavigationBar from "./NavigationBar";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import mockRouter from "next-router-mock";
+
+vi.mock("next/router", () => ({
+  useRouter: () => mockRouter,
+}));
 
 describe("NavigationBar", () => {
+  afterAll(() => {
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("renders navigation links based on depth", () => {
     render(
       <MemoryRouter initialEntries={["/?page=2"]}>
@@ -16,12 +29,10 @@ describe("NavigationBar", () => {
   });
 
   it("highlights the active page", () => {
-    render(
-      <MemoryRouter initialEntries={["/?page=3"]}>
-        <NavigationBar depth={5} />
-      </MemoryRouter>,
-    );
+    mockRouter.setCurrentUrl("/?query=&page=3");
+    render(<NavigationBar depth={5} />);
 
-    expect(screen.getByText("3")).toHaveClass("active");
+    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.getByText("3")).toHaveClass(/(.*?)active(.*?)/i);
   });
 });
