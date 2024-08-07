@@ -26,4 +26,5 @@ export function setupStore(preloadedState?: Partial<RootState>) {
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];
 export default store;

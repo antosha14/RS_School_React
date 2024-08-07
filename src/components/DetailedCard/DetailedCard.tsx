@@ -45,7 +45,6 @@ function DetailedCard({ character }: { character: Character }) {
       </div>
       <div
         className={classnames.appWrapper}
-        q
         data-testid="app-wrapper"
         onClick={() => {
           router.push(`/?query=${query}&page=${page}`);

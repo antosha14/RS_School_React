@@ -1,13 +1,12 @@
 import "../styles/index.css";
 import { ThemeProvider } from "../contexts/ThemeContext.tsx";
-import { Provider } from "react-redux";
-import store from "../store/store.ts";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ErrorBoundary, Layout, LoadingSpinner } from "../components/index.tsx";
 import { useState, useEffect } from "react";
 import classNames from "../styles/MainPage.module.css";
+import StoreProvider from "../store/StoreProvider.tsx";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -35,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider>
-      <Provider store={store}>
+      <StoreProvider>
         <Head>
           <meta charSet="UTF-8" />
           <meta name="description" content="RSSchool React" />
@@ -58,7 +57,7 @@ export default function App({ Component, pageProps }: AppProps) {
             )}
           </Layout>
         </ErrorBoundary>
-      </Provider>
+      </StoreProvider>
     </ThemeProvider>
   );
 }

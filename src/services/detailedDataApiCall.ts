@@ -5,7 +5,10 @@ const detailedDataApiCall = async (searchedUid: string) => {
       uid: uid,
     });
     const URL = `https://stapi.co/api/v1/rest/character?${urlSearchParams}`;
-    const response = await fetch(URL);
+    const response = await fetch(URL, {
+      cache: "force-cache",
+      next: { revalidate: 60 },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error ${response.status}`);

@@ -36,3 +36,4 @@ initialState: {character: {,…}, characterAPI: {queries: {,…}, mutations: {},
 СПОЙЛЕР
 
 refactor: rewrite routing and links
+Поженить редакс, написать тесты
