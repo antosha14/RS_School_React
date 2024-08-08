@@ -35,7 +35,7 @@ describe("useLocalStorage", () => {
       "test query",
     );
 
-    vi.mocked(localStorage.getItem).mockReturnValueOnce('"test query"');
+    vi.mocked(localStorage.getItem).mockReturnValueOnce("test query");
     expect(getQueryFromLocalStorage()).toBe("test query");
 
     vi.mocked(localStorage.getItem).mockReturnValueOnce(null);
