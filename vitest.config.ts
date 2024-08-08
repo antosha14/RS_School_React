@@ -13,6 +13,7 @@ export default defineConfig({
         "**/.eslintrc.cjs",
         "vitest.config.ts",
         "next.config.mjs",
+        "next-env.d.ts",
         "dist",
         "**/*.test.{js,jsx,ts,tsx}",
       ],

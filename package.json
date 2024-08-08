@@ -10,8 +10,9 @@
     "lint": "eslint .",
     "format:fix": "npx prettier . --write",
     "prepare": "husky",
-    "test": "vitest --coverage",
-    "test:ui": "vitest --ui"
+    "test": "vitest --coverage --watch=false",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest --coverage --watch=false"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",

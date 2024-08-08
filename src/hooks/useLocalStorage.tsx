@@ -26,7 +26,7 @@ const useLocalStorage = () => {
   const getQueryFromLocalStorage = (): string => {
     if (!isServer) {
       const currentQuery = localStorage.getItem(queryKey);
-      return currentQuery ? JSON.parse(currentQuery) : "";
+      return currentQuery ? currentQuery : "";
     }
     return "";
   };
