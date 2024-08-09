@@ -1,10 +1,8 @@
 import { CardGroup, Flyout, DetailedCard } from "../components";
-//import { useEffect } from "react";
 import classNames from "../styles/MainPage.module.css";
 import { useTheme } from "../contexts/ThemeContext";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-//import { fetchedItemsActions } from "../store/pageItems";
 import { useRouter } from "next/router";
 import startrekApiCall from "../services/startrekApiCall";
 import { detailedDataApiCall } from "../services/detailedDataApiCall";
@@ -12,6 +10,8 @@ import {
   StartrekApiResponse,
   DetailedCharacterResponse,
 } from "../services/apiSlice";
+import { useEffect } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function MainPage({
   characterList,
@@ -22,35 +22,29 @@ export default function MainPage({
 }) {
   const navigate = useRouter();
   const darkTheme = useTheme();
-  // const dispatch = useDispatch();
   const showFlyout = useSelector(
     (state: RootState) => state.selection.selectedNumberOfEntries > 0,
   );
+
+  const { getQueryFromLocalStorage } = useLocalStorage();
 
   const queryParams = navigate.query;
   const query = queryParams["query"] ? String(queryParams["query"]) : "";
   const page = queryParams["page"] ? Number(queryParams["page"]) : 1;
   const uid = queryParams["details"] ? String(queryParams["details"]) : "";
 
-  // useEffect(() => {
-  //   if (uid !== "" && typeof detailedCharacter !== "string") {
-  //     dispatch(
-  //       fetchedItemsActions.addFetchedDetailedCharacterToStore(
-  //         detailedCharacter.character,
-  //       ),
-  //     );
-  //   }
-  // }, [detailedCharacter, dispatch, uid]);
-
-  // useEffect(() => {
-  //   if (charactersData) {
-  //     dispatch(
-  //       fetchedItemsActions.addFetchedCharactersToStore(
-  //         charactersData.characters,
-  //       ),
-  //     );
-  //   }
-  // }, [charactersData, dispatch]);
+  useEffect(() => {
+    const storedQuery = getQueryFromLocalStorage() || "";
+    if (storedQuery !== navigate.query.query) {
+      navigate.push({
+        pathname: navigate.pathname,
+        query: {
+          query: storedQuery,
+          page: 1,
+        },
+      });
+    }
+  }, []);
 
   const fetchedCharacters = (
     <div className={classNames.paginationContainer}>
