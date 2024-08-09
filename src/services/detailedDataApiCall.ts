@@ -6,7 +6,6 @@ const detailedDataApiCall = async (searchedUid: string) => {
     });
     const URL = `https://stapi.co/api/v1/rest/character?${urlSearchParams}`;
     const response = await fetch(URL, {
-      cache: "force-cache",
       next: { revalidate: 60 },
     });
 

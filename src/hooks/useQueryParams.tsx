@@ -1,8 +1,13 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { useSearchParams } from "next/navigation";
 
 const useQueryParams = () => {
-  const router = useRouter();
-  const { query, page, details } = router.query;
+  const router = useSearchParams();
+
+  const query = router.get("query");
+  const page = router.get("page");
+  const details = router.get("details");
 
   const currentQuery = query ? String(query) : "";
   const currentPage = page ? Number(page) : 1;

@@ -1,4 +1,6 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useLocalStorage from "./useLocalStorage";
 
@@ -22,12 +24,7 @@ const useSearchForm = (inputRef: React.RefObject<HTMLInputElement>) => {
     }
 
     setQueryInLocalStorage(currentQuery);
-    const newQueryParams = {
-      query: currentQuery,
-      page: "1",
-      ...(router.query.details && { details: router.query.details }),
-    };
-    router.push({ pathname: router.pathname, query: newQueryParams });
+    router.push(`/?query=${currentQuery}&page=${1}`);
   };
 
   return { currentQuery: currentQuery, handleInputChange, handleSubmit };

@@ -17,7 +17,6 @@ async function startrekApiCall(
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: `name=${encodeURIComponent(trimmedRequest)}`,
-      cache: "force-cache",
       next: { revalidate: 60 },
     });
 

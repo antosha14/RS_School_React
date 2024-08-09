@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import classNames from "../../styles/PageNotFoundPage.module.css";
 import { useTheme } from "../../contexts/ThemeContext";

@@ -1,14 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import classnames from "./DetailedCard.module.css";
 import { Character } from "../../services/apiSlice";
-import { useRouter } from "next/router";
-import useQueryParams from "../../hooks/useQueryParams";
+import { useRouter } from "next/navigation";
 
-function DetailedCard({ character }: { character: Character }) {
+function DetailedCard({
+  character,
+  searchParams,
+}: {
+  character: Character;
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   const router = useRouter();
-  const { currentQuery, currentPage } = useQueryParams();
-  const query = currentQuery;
-  const page = currentPage;
+  const query = searchParams["query"] ? String(searchParams["query"]) : "";
+  const page = searchParams["page"] ? Number(searchParams["page"]) : 1;
 
   return (
     <>

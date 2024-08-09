@@ -44,4 +44,5 @@ const ThemeProvider = ({ children }: { children: ReactElement }) => {
   );
 };
 
-export { ThemeProvider, useTheme, useThemeUpdate };
+export default ThemeProvider;
+export { useTheme, useThemeUpdate };

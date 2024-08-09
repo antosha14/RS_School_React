@@ -1,3 +1,5 @@
+"use client";
+
 import classes from "./CardGroup.module.css";
 import { Card } from "../index";
 import { StartrekApiResponse, Character } from "../../services/apiSlice";

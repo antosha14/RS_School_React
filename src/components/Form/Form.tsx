@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "../index";
 import { useRef } from "react";
 import useSearchForm from "../../hooks/useSearchForm";

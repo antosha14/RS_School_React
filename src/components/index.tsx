@@ -8,7 +8,6 @@ import NavigationBar from "./NavigationBar/NavigationBar";
 import ToggleThemeButton from "./ToggleThemeButton/ToggleThemeButton";
 import ToggleAddStatusButton from "./ToggleAddStatusButton/ToggleAddStatusButton";
 import Flyout from "./SelectedFlyout/SelectedFlyout";
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import Layout from "./Layout/Layout";
 import Head from "next/head";
 import PageNotFoundPage from "./PageNotFound/PageNotFoundPage";
@@ -24,7 +23,6 @@ export {
   ToggleThemeButton,
   ToggleAddStatusButton,
   Flyout,
-  ErrorBoundary,
   Layout,
   Head,
   PageNotFoundPage,
