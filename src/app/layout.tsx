@@ -5,13 +5,12 @@ import StoreProvider from "../store/StoreProvider.tsx";
 import { Layout } from "../components/index.tsx";
 
 export const metadata: Metadata = {
-  title: "StarTrek Character Search",
-  description: "RSSchool React 2024",
+  title: "RSSchool React 2024",
+  description: "StarTrek Character Search",
   icons: [
     {
       rel: "icon",
-      type: "image/svg+xm",
-      sizes: "32x32",
+      type: "image/svg+xml",
       url: "/icon.svg",
     },
   ],

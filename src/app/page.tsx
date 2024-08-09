@@ -1,9 +1,6 @@
 import startrekApiCall from "../services/startrekApiCall";
 import { detailedDataApiCall } from "../services/detailedDataApiCall";
 import HomePage from "./(mainPage)/homePage";
-import { Suspense } from "react";
-import { LoadingSpinner } from "../components";
-import classNames from "../styles/MainPage.module.css";
 
 export async function getCharacters(
   query: string,

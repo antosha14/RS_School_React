@@ -37,8 +37,15 @@ const mockedCardData = {
   uid: "CHMA0000215045",
 };
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: () => mockRouter,
+  useSearchParams: vi.fn(() => {
+    return new URLSearchParams({
+      currentQuery: "",
+      currentPage: "1",
+      currentDetails: "",
+    });
+  }),
 }));
 
 describe("Card tests", () => {

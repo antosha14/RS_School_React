@@ -270,8 +270,15 @@ const respWith9Characters = {
   ],
 };
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: () => mockRouter,
+  useSearchParams: vi.fn(() => {
+    return new URLSearchParams({
+      currentQuery: "",
+      currentPage: "1",
+      currentDetails: "",
+    });
+  }),
 }));
 
 describe("Card Group tests", () => {

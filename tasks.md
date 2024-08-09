@@ -10,3 +10,6 @@
 - [x] Flyout component is showed/hidden based on the presence of selected items, displays the number of selected items (20/20)
 - [x] "Unselect all" button and "Download" button work according to the requirements (35/35)
 - [x] User can switch the theme of the application (45/45)
+
+Добавить спиннеры в app router
+Перепроверить сервер ли сайд рендеринг, сделать адекватно выглядящую гидрацию

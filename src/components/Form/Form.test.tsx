@@ -4,7 +4,7 @@ import { renderWithContext } from "../../tests/testingUtils/renderWithContext";
 import SearchForm from "./Form";
 import mockRouter from "next-router-mock";
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: () => mockRouter,
 }));
 

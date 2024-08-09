@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import classnames from "../styles/ErrorBoundary.module.css";
 
-export default function Error({
+export default function ErrorComponent({
   error,
 }: {
   error: Error & { digest?: string };

@@ -31,8 +31,15 @@ const mockedCardData = {
   alternateReality: false,
 };
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: () => mockRouter,
+  useSearchParams: vi.fn(() => {
+    return new URLSearchParams({
+      currentQuery: "",
+      currentPage: "1",
+      currentDetails: "",
+    });
+  }),
 }));
 
 describe("Detailed Card tests", () => {
@@ -70,14 +77,16 @@ describe("Detailed Card tests", () => {
   });
 
   it("Navigates back when clicking outside the card", async () => {
-    mockRouter.setCurrentUrl("/?query=Anton&page=2");
+    mockRouter.setCurrentUrl("/?query=&page=1");
     const user = userEvent.setup();
+
     renderWithContext(<DetailedCard character={mockedCardData} />);
     mockRouter.push = vi.fn();
 
     const appWrapper = screen.getByTestId("app-wrapper");
     await user.click(appWrapper);
 
-    expect(mockRouter.push).toHaveBeenCalledWith("/?query=Anton&page=2");
+    expect(mockRouter.push).toHaveBeenCalled();
+    expect(mockRouter.push).toHaveBeenCalledWith("/?query=&page=1");
   });
 });

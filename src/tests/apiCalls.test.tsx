@@ -298,7 +298,6 @@ describe("API calls tests", () => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: "name=Anton",
-        cache: "force-cache",
         next: { revalidate: 60 },
       },
     );
@@ -333,10 +332,7 @@ describe("API calls tests", () => {
 
     expect(fetch).toHaveBeenCalledWith(
       `https://stapi.co/api/v1/rest/character?uid=${testUID}`,
-      {
-        cache: "force-cache",
-        next: { revalidate: 60 },
-      },
+      { next: { revalidate: 60 } },
     );
     expect(detailedData).toEqual(mockedCardData);
   });
