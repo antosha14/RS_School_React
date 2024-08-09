@@ -9,25 +9,36 @@ import {
   StartrekApiResponse,
   DetailedCharacterResponse,
 } from "../../services/apiSlice";
-import useQueryParams from "../../hooks/useQueryParams";
+import { useEffect } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { useRouter } from "next/navigation";
 
 export default function HomePage({
   characterList,
   detailedCharacter,
+  searchParams,
 }: {
   characterList: StartrekApiResponse;
   detailedCharacter: string | DetailedCharacterResponse;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const navigate = useRouter();
   const darkTheme = useTheme();
   const showFlyout = useSelector(
     (state: RootState) => state.selection.selectedNumberOfEntries > 0,
   );
+  const { getQueryFromLocalStorage } = useLocalStorage();
 
-  const { currentDetails, currentPage, currentQuery } = useQueryParams();
+  const query = searchParams["query"] ? String(searchParams["query"]) : "";
+  const page = searchParams["page"] ? Number(searchParams["page"]) : 1;
+  const uid = searchParams["details"] ? String(searchParams["details"]) : "";
 
-  const query = currentQuery ? String(currentQuery) : "";
-  const page = currentPage ? Number(currentPage) : 1;
-  const uid = currentDetails ? String(currentDetails) : "";
+  useEffect(() => {
+    const storedQuery = getQueryFromLocalStorage() || "";
+    if (storedQuery !== searchParams.query) {
+      navigate.push(`/?query=${storedQuery}&page=1`);
+    }
+  }, []);
 
   const fetchedCharacters = (
     <div className={classNames.paginationContainer}>

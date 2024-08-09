@@ -35,19 +35,10 @@ export default async function MainPage({
     uid,
   );
   return (
-    <Suspense
-      key={"char"}
-      fallback={
-        <div className={classNames.mainContainerLight}>
-          <LoadingSpinner></LoadingSpinner>
-        </div>
-      }
-    >
-      <HomePage
-        characterList={characterList}
-        detailedCharacter={detailedCharacter}
-        searchParams={searchParams}
-      ></HomePage>
-    </Suspense>
+    <HomePage
+      characterList={characterList}
+      detailedCharacter={detailedCharacter}
+      searchParams={searchParams}
+    ></HomePage>
   );
 }
