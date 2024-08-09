@@ -1,0 +1,14 @@
+ul.liContainer {
+  position: relative;
+  list-style: none;
+}
+
+.notFoundContainer {
+  font-size: 25px;
+  color: #fce4ec;
+}
+
+.notFoundContainerLight {
+  font-size: 25px;
+  color: var(--primary-font-color-light);
+}
