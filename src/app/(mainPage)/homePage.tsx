@@ -12,33 +12,52 @@ import {
 import { useEffect } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useRouter } from "next/navigation";
+import startrekApiCall from "../../services/startrekApiCall";
+import { detailedDataApiCall } from "../../services/detailedDataApiCall";
 
-export default function HomePage({
-  characterList,
-  detailedCharacter,
+
+export async function getCharacters(
+  query: string,
+  page: number,
+  details: string,
+): Promise<{ characterList: StartrekApiResponse; detailedCharacter: DetailedCharacterResponse; }> {
+  const charListResp = await startrekApiCall(query, Number(page));
+  const detailedCharResp =
+    details !== "" ? await detailedDataApiCall(details) : "";
+
+  return {
+    characterList: charListResp,
+    detailedCharacter: detailedCharResp,
+  };
+}
+
+export default async function HomePage({
   searchParams,
 }: {
-  characterList: StartrekApiResponse;
-  detailedCharacter: string | DetailedCharacterResponse;
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  useEffect(() => {
+    const storedQuery = localQuery || "";
+    if (storedQuery !== searchParams.query) {
+      navigate.push(`/?query=${storedQuery}&page=1`);
+    }
+  }, []);
+  
   const navigate = useRouter();
   const darkTheme = useTheme();
   const showFlyout = useSelector(
     (state: RootState) => state.selection.selectedNumberOfEntries > 0,
   );
   const { getQueryFromLocalStorage } = useLocalStorage();
+  const localQuery =getQueryFromLocalStorage()
 
   const query = searchParams["query"] ? String(searchParams["query"]) : "";
   const page = searchParams["page"] ? Number(searchParams["page"]) : 1;
   const uid = searchParams["details"] ? String(searchParams["details"]) : "";
 
-  useEffect(() => {
-    const storedQuery = getQueryFromLocalStorage() || "";
-    if (storedQuery !== searchParams.query) {
-      navigate.push(`/?query=${storedQuery}&page=1`);
-    }
-  }, []);
+  const {characterList, detailedCharacter} = await getCharacters(query, page, uid)
+
+
 
   const fetchedCharacters = (
     <div className={classNames.paginationContainer}>
@@ -56,7 +75,6 @@ export default function HomePage({
   } else {
     characterDetails = (
       <DetailedCard
-        searchParams={searchParams}
         character={detailedCharacter.character}
       ></DetailedCard>
     );
