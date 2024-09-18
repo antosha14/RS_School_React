@@ -1,0 +1,26 @@
+.navigationContainer {
+  display: inline-block;
+  padding-inline-start: 40px;
+}
+
+.navigationContainer a {
+  color: black;
+  background-color: white;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+}
+
+.navigationContainer a.active {
+  background-color: var(--emphasize-color);
+  color: white;
+  border: 1px solid var(--emphasize-color);
+}
+
+.navigationContainer a:hover:not(.active) {
+  background-color: var(--emphasize-color);
+  color: white;
+  border: 1px solid var(--emphasize-color);
+}

@@ -1,0 +1,316 @@
+import CardGroup from "./CardGroup";
+import { screen } from "@testing-library/react";
+import { renderWithContext } from "../../tests/testingUtils/renderWithContext";
+import mockRouter from "next-router-mock";
+
+const emptyResp = {
+  page: {
+    pageNumber: 0,
+    pageSize: 50,
+    numberOfElements: 0,
+    totalElements: 0,
+    totalPages: 0,
+    firstPage: true,
+    lastPage: true,
+  },
+  sort: {
+    clauses: [],
+  },
+  characters: [],
+};
+
+const respWith9Characters = {
+  page: {
+    pageNumber: 0,
+    pageSize: 50,
+    numberOfElements: 0,
+    totalElements: 14,
+    totalPages: 2,
+    firstPage: true,
+    lastPage: true,
+  },
+  sort: {
+    clauses: [],
+  },
+  characters: [
+    {
+      uid: "CHMA0000215045",
+      name: "0413 Theta",
+      gender: null,
+      yearOfBirth: null,
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: true,
+      alternateReality: false,
+    },
+    {
+      uid: "CHMA0000174718",
+      name: "0718",
+      gender: "M",
+      yearOfBirth: "2259",
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: false,
+      alternateReality: true,
+    },
+    {
+      uid: "CHMA0000283851",
+      name: "10111",
+      gender: null,
+      yearOfBirth: null,
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: false,
+      alternateReality: false,
+    },
+    {
+      uid: "CHMA0000278055",
+      name: "335",
+      gender: null,
+      yearOfBirth: null,
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: false,
+      alternateReality: false,
+    },
+    {
+      uid: "CHMA0000282741",
+      name: "355",
+      gender: null,
+      yearOfBirth: null,
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: false,
+      alternateReality: false,
+    },
+    {
+      uid: "CHMA0000026532",
+      name: "A'trom",
+      gender: null,
+      yearOfBirth: null,
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: false,
+      alternateReality: false,
+    },
+    {
+      uid: "CHMA0000280385",
+      name: "A. Armaganian",
+      gender: null,
+      yearOfBirth: null,
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: false,
+      alternateReality: false,
+    },
+    {
+      uid: "CHMA0000226457",
+      name: "A. Baiers",
+      gender: null,
+      yearOfBirth: null,
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: false,
+      alternateReality: false,
+    },
+    {
+      uid: "CHMA0000232390",
+      name: "A. Baiers",
+      gender: null,
+      yearOfBirth: null,
+      monthOfBirth: null,
+      dayOfBirth: null,
+      placeOfBirth: null,
+      yearOfDeath: null,
+      monthOfDeath: null,
+      dayOfDeath: null,
+      placeOfDeath: null,
+      height: null,
+      weight: null,
+      deceased: null,
+      bloodType: null,
+      maritalStatus: null,
+      serialNumber: null,
+      hologramActivationDate: null,
+      hologramStatus: null,
+      hologramDateStatus: null,
+      hologram: false,
+      fictionalCharacter: false,
+      mirror: true,
+      alternateReality: false,
+    },
+  ],
+};
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => mockRouter,
+  useSearchParams: vi.fn(() => {
+    return new URLSearchParams({
+      currentQuery: "",
+      currentPage: "1",
+      currentDetails: "",
+    });
+  }),
+}));
+
+describe("Card Group tests", () => {
+  afterAll(() => {
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("Appropriate message is displayed if no cards are present", () => {
+    renderWithContext(
+      <CardGroup
+        searchedElements={emptyResp}
+        depth={emptyResp.page.totalPages}
+      ></CardGroup>,
+    );
+
+    const notFoundMessage = screen.getByText(/isn't any character/);
+    expect(notFoundMessage).toBeInTheDocument();
+  });
+
+  it("Component renders 9 cards, when array of 9 characters is passed", () => {
+    renderWithContext(
+      <CardGroup
+        searchedElements={respWith9Characters}
+        depth={respWith9Characters.page.totalPages}
+      ></CardGroup>,
+    );
+
+    const quiredElements = screen.getAllByRole("listitem");
+    expect(quiredElements).toHaveLength(9);
+  });
+});

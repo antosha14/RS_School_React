@@ -1,0 +1,72 @@
+.detailedCardContainer {
+  background-color: var(--primary-background);
+  min-width: 300px;
+  height: auto;
+  display: flex;
+  align-items: top;
+  max-height: 300px;
+  z-index: 15;
+}
+
+.detailedCardItem {
+  min-width: 260px;
+  background-color: var(--secondary-background);
+  color: var(--primary-font-color);
+  margin: 16px;
+  padding: 8px;
+}
+
+.appWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: 10;
+  cursor: pointer;
+  background-color: black;
+  opacity: 0.4;
+}
+
+.descriptionItem {
+  margin: 5px;
+  font-size: 20px;
+}
+
+.closeButton {
+  background: #f50057;
+  border: 1px solid #f50057;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 16px;
+  min-height: 30px;
+  outline: 0;
+  padding: 6px 7px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  margin-top: 13px;
+}
+
+.closeButton:hover,
+.closeButton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #f50057;
+}
+
+.closeButton:active {
+  opacity: 0.5;
+}
